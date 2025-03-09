@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import static utils.Constants.PlayerConstants.*;
+import static utils.Constants.Directions.*;
+
 public class GamePanel extends JPanel{
 	
 	private MouseInputs mouseInputs;
@@ -19,6 +22,9 @@ public class GamePanel extends JPanel{
 	private BufferedImage img;
 	private BufferedImage[][] animations;
 	private int animTick, animIndex, animSpeed = 10;
+	private int playerAction = RUNNING;
+	private int playerDir = -1;
+	private boolean moving = false;
 	
 	
 	
@@ -33,7 +39,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	private void loadAnimations() {
-		animations = new BufferedImage[16][7];
+		animations = new BufferedImage[13][7];
 		
 		for(int i = 0; i < animations.length; i++ ) {
 			for(int j = 0; j < animations[i].length; j++) {
@@ -43,7 +49,7 @@ public class GamePanel extends JPanel{
 	}
 
 	private void importImg() {
-		InputStream is = getClass().getResourceAsStream("/adventurer_sprites.png");
+		InputStream is = getClass().getResourceAsStream("/adventurer_sprites_v1.png");
 		
 		try {
 			img = ImageIO.read(is);
@@ -62,20 +68,45 @@ public class GamePanel extends JPanel{
 		Dimension size = new Dimension(1280, 760);
 		setPreferredSize(size);
 	}
-
-	public void changeXDelta(int value) {
-		this.xDelta += value;
-		repaint();
+	
+	public void setDirection	(int direction) {
+		this.playerDir = direction;
+		moving = true;
 	}
 	
-	public void changeYDelta(int value) {
-		this.yDelta += value;
-		repaint();
+	public void setMoving(boolean moving) {
+		this.moving = moving;
 	}
 	
-	public void setRectPos(int x, int y) {
-		this.xDelta = x;
-		this.yDelta = y;
+	private void setAnimation() {
+		// TODO Auto-generated method stub
+		if(moving) {
+			playerAction = RUNNING;
+		}
+		else {
+			playerAction = IDLE;
+		}
+		
+	}
+	
+	private void updatePosition() {
+		// TODO Auto-generated method stub
+		if(moving) {
+			switch(playerDir) {
+				case LEFT:
+					xDelta -= 5;
+					break;
+				case UP:
+					yDelta -= 5;
+					break;
+				case RIGHT:
+					xDelta += 5;
+					break;
+				case DOWN:
+					yDelta += 5;
+					break;
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -83,7 +114,10 @@ public class GamePanel extends JPanel{
 		
 		updateAnimationTick();
 		
-		g.drawImage(animations[1][animIndex], (int)xDelta, (int)yDelta, 128, 80, null);
+		setAnimation();
+		updatePosition();
+		
+		g.drawImage(animations[playerAction][animIndex], (int)xDelta, (int)yDelta, 128, 80, null);
 	}
 
 	private void updateAnimationTick() {
@@ -93,7 +127,7 @@ public class GamePanel extends JPanel{
 			animTick = 0;
 			animIndex++;
 			
-			if(animIndex >= 6) {
+			if(animIndex >= GetSpriteAmount(playerAction)) {
 				animIndex = 0; 
 			}
 		}
