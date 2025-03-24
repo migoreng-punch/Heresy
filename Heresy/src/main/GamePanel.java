@@ -15,122 +15,43 @@ import inputs.MouseInputs;
 import static utils.Constants.PlayerConstants.*;
 import static utils.Constants.Directions.*;
 
+import static main.Game.GAME_WIDTH;
+import static main.Game.GAME_HEIGHT;
+
 public class GamePanel extends JPanel{
 	
 	private MouseInputs mouseInputs;
-	private float xDelta = 100, yDelta = 100;
-	private BufferedImage img;
-	private BufferedImage[][] animations;
-	private int animTick, animIndex, animSpeed = 10;
-	private int playerAction = RUNNING;
-	private int playerDir = -1;
-	private boolean moving = false;
+	private Game game;
 	
-	
-	
-	public GamePanel(){
+	public GamePanel(Game game){
 		mouseInputs = new MouseInputs(this);
-		importImg();
-		loadAnimations();
-		addKeyListener(new KeyboardInputs(this));
+		this.game = game;
 		setPanelSize();
+		addKeyListener(new KeyboardInputs(this));
 		addMouseListener(mouseInputs);
 		addMouseMotionListener(mouseInputs);
 	}
 	
-	private void loadAnimations() {
-		animations = new BufferedImage[13][7];
-		
-		for(int i = 0; i < animations.length; i++ ) {
-			for(int j = 0; j < animations[i].length; j++) {
-				animations[i][j] = img.getSubimage(j * 50, i * 37, 50, 37);
-			}
-		}
-	}
-
-	private void importImg() {
-		InputStream is = getClass().getResourceAsStream("/adventurer_sprites_v1.png");
-		
-		try {
-			img = ImageIO.read(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280, 760);
+		Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 		setPreferredSize(size);
-	}
-	
-	public void setDirection	(int direction) {
-		this.playerDir = direction;
-		moving = true;
-	}
-	
-	public void setMoving(boolean moving) {
-		this.moving = moving;
-	}
-	
-	private void setAnimation() {
-		// TODO Auto-generated method stub
-		if(moving) {
-			playerAction = RUNNING;
-		}
-		else {
-			playerAction = IDLE;
-		}
+		System.out.println("size: " + GAME_WIDTH + " : " + GAME_HEIGHT);
 		
 	}
 	
-	private void updatePosition() {
-		// TODO Auto-generated method stub
-		if(moving) {
-			switch(playerDir) {
-				case LEFT:
-					xDelta -= 5;
-					break;
-				case UP:
-					yDelta -= 5;
-					break;
-				case RIGHT:
-					xDelta += 5;
-					break;
-				case DOWN:
-					yDelta += 5;
-					break;
-			}
-		}
+	
+	public void updateGame() {
+		
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		updateAnimationTick();
-		
-		setAnimation();
-		updatePosition();
-		
-		g.drawImage(animations[playerAction][animIndex], (int)xDelta, (int)yDelta, 128, 80, null);
+		game.render(g);
 	}
-
-	private void updateAnimationTick() {
-		animTick++;
-		
-		if(animTick >= animSpeed) {
-			animTick = 0;
-			animIndex++;
-			
-			if(animIndex >= GetSpriteAmount(playerAction)) {
-				animIndex = 0; 
-			}
-		}
+	
+	public Game getGame() {
+		return game;
 	}
 
 	
