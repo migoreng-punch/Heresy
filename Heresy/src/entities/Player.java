@@ -17,6 +17,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import main.Game;
 import utils.LoadSave;
 
 public class Player extends Entity {
@@ -27,21 +28,23 @@ public class Player extends Entity {
 	private boolean moving = false, attacking = false ;
 	private float playerSpeed = 2.0f;
 	private int[][] lvlData;
+	private float xDrawOffset = 16 * Game.SCALE;
+	private float yDrawOffset = 9 * Game.SCALE;
 	
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimations();
+		initHitbox(x, y, 17 * Game.SCALE, 27 * Game.SCALE);
 	}
 	
 	public void update() {
 		updatePosition();
-		updateHitbox();
 		updateAnimationTick();	
 		setAnimation();
 	}
 	
 	public void render(Graphics g) {		
-		g.drawImage(animations[playerAction][animIndex], (int)x, (int)y, width, height, null);
+		g.drawImage(animations[playerAction][animIndex],(int) (hitBox.x - xDrawOffset), (int) (hitBox.y - yDrawOffset), width, height, null);
 		drawHitbox(g);
 	}
 	
@@ -113,9 +116,15 @@ public class Player extends Entity {
 			
 		}
 		
-		if(CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
-			this.x += xSpeed;
-			this.y += ySpeed;
+//		if(CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
+//			this.x += xSpeed;
+//			this.y += ySpeed;
+//			moving = true;
+//		}
+		
+		if(CanMoveHere(hitBox.x + xSpeed, hitBox.y + ySpeed, hitBox.width, hitBox.height, lvlData)) {
+			hitBox.x += xSpeed;
+			hitBox.y += ySpeed;
 			moving = true;
 		}
 	}
