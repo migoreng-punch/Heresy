@@ -19,7 +19,8 @@ public class HelpMethods {
 	}
 	
 	private static boolean IsSolid(float x , float y, int[][] lvlData) {
-		if(x < 0 || x >= Game.GAME_WIDTH) {
+		int maxWidth = lvlData[0].length * Game.TILES_SIZE;
+		if(x < 0 || x >= maxWidth) {
 			return true;
 		}
 		if(y < 0 || y >= Game.GAME_HEIGHT) {
@@ -30,13 +31,37 @@ public class HelpMethods {
 		
 		int value = lvlData[(int) yIndex][(int) xIndex];
 		
-		if(value >= 315 || value < 0 || value != 4) {
+		if(value >= 48 || value < 0 || value != 11) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
+	
+	
+	
+	
+//	private static boolean IsSolid(float x , float y, int[][] lvlData) {
+//		int maxWidth = lvlData[0].length * Game.TILES_SIZE;
+//		if(x < 0 || x >= maxWidth) {
+//			return true;
+//		}
+//		if(y < 0 || y >= Game.GAME_HEIGHT) {
+//			return true;
+//		}
+//		float xIndex = x / Game.TILES_SIZE;
+//		float yIndex = y / Game.TILES_SIZE;
+//		
+//		int value = lvlData[(int) yIndex][(int) xIndex];
+//		
+//		if(value >= 315 || value < 0 || value != 4) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
 	
 	public static float GetEntityXPosNextToWall(Rectangle2D.Float hitBox, float xSpeed) {
 		int currentTile = (int)(hitBox.x / Game.TILES_SIZE);
