@@ -1,4 +1,4 @@
-package entities;
+	package entities;
 
 import static utils.Constants.Directions.DOWN;
 import static utils.Constants.Directions.LEFT;
