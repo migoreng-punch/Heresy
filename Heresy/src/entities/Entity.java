@@ -23,7 +23,7 @@ public abstract class Entity {
 		g.drawRect((int)hitBox.x, (int)hitBox.y, (int)hitBox.width, (int)hitBox.height);
 	}
 
-	protected void initHitbox(float x, float y, float width, float height) {
+	protected void initHitbox(float x, float y, int width, int height) {
 		// TODO Auto-generated method stub
 		hitBox = new Rectangle2D.Float( x, y, width, height);
 	}
