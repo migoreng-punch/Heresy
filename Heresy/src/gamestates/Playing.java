@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
+import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
@@ -14,6 +16,7 @@ import utils.LoadSave;
 public class Playing extends State implements StateMethods {
 	private Player player;
 	private LevelManager levelManager;
+	private EnemyManager enemyManager;
 	private PauseOverlay pauseOverlay;
 	private boolean paused = false;
 	
@@ -24,13 +27,18 @@ public class Playing extends State implements StateMethods {
 	private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
 	private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 	
+	private BufferedImage backgroundImg;
+	
 	public Playing(Game game) {
 		super(game);
 		initClasses();
+		
+		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
 	}
 	
 	private void initClasses() {
 		levelManager = new LevelManager(game);
+		enemyManager = new EnemyManager(this);
 		player = new Player(200 , 200, (int) (50 * Game.SCALE), (int) (37 * Game.SCALE));
 		player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
 		pauseOverlay = new PauseOverlay(this);
@@ -43,6 +51,7 @@ public class Playing extends State implements StateMethods {
 		if(!paused) {
 			levelManager.update();
 			player.update();
+			enemyManager.update();
 			checkCloseToBorder();
 		}else {
 			pauseOverlay.update();
@@ -70,8 +79,11 @@ public class Playing extends State implements StateMethods {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
+		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+		
 		levelManager.draw(g, xLvlOffset);
 		player.render(g, xLvlOffset);
+		enemyManager.draw(g, xLvlOffset);
 		
 		if(paused) {
 			g.setColor(new Color(0,0,0,150));

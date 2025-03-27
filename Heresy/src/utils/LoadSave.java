@@ -4,8 +4,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import entities.Skelly;
+import static utils.Constants.EnemyConstants.SKELLY;
 
 import main.Game;
 
@@ -22,6 +26,8 @@ public class LoadSave {
 	public static final String URM_BUTTONS = "urm_buttons.png";
 	public static final String VOLUME_BUTTONS = "volume_buttons.png";
 	public static final String MENU_BACKGROUND_IMG = "background_Town1.png";
+	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
+	public static final String SKELETON_SPRITE = "skeleton_other_sprites.png";
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) { 
 		BufferedImage img = null;
@@ -40,6 +46,22 @@ public class LoadSave {
 			}
 		}
 		return img;
+	}
+	
+	public static ArrayList<Skelly> getSkellies(){
+		BufferedImage img = GetSpriteAtlas(LEVEL_TEMP_DATA);
+		ArrayList<Skelly> list = new ArrayList<>();
+		
+		for(int i = 0; i < img.getHeight(); i++) {
+			for(int j = 0; j < img.getWidth(); j++) {
+				Color color = new Color(img.getRGB(j, i));
+				int value = color.getGreen(); 
+				if(value == SKELLY) {
+					list.add(new Skelly(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
+				}
+			}		
+		}
+		return list;
 	}
 	
 	public static int[][] GetLevelData(){
