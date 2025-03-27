@@ -25,9 +25,9 @@ public class EnemyManager {
 		System.out.println("size of skellies: " + skellies.size());
 	}
 
-	public void update(int[][] lvlData) {
+	public void update(int[][] lvlData, Player player) {
 		for(Skelly s: skellies) {
-			s.update(lvlData);
+			s.update(lvlData, player);
 		}
 	}
 	
