@@ -25,9 +25,9 @@ public class EnemyManager {
 		System.out.println("size of skellies: " + skellies.size());
 	}
 
-	public void update() {
+	public void update(int[][] lvlData) {
 		for(Skelly s: skellies) {
-			s.update();
+			s.update(lvlData);
 		}
 	}
 	
@@ -37,16 +37,17 @@ public class EnemyManager {
 
 	private void drawSkellies(Graphics g, int xLvlOffset) {
 		for(Skelly s: skellies) {
-			g.drawImage(skellyArr[s.getEnemyState()][s.getAniIndex()], (int) s.getHitbox().x - xLvlOffset, (int) s.getHitbox().y, SKELLY_WIDTH, SKELLY_HEIGHT, null);
+			g.drawImage(skellyArr[s.getEnemyState()][s.getAniIndex()], (int) s.getHitbox().x - xLvlOffset - SKELLY_DRAWOFFSET_X, (int) s.getHitbox().y - SKELLY_DRAWOFFSET_Y, SKELLY_WIDTH, SKELLY_HEIGHT, null);
+			s.drawHitbox(g, xLvlOffset);
 		}
 	}
 
 	private void loadEnemyImgs() {
-		skellyArr = new BufferedImage[6][13];
+		skellyArr = new BufferedImage[5][9];
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE);
 		
 		for(int i = 0; i < skellyArr.length; i++) {
-			for(int j = 0; j <skellyArr[i].length; j++) {
+			for(int j = 0; j < skellyArr[i].length; j++) {
 				skellyArr[i][j] = temp.getSubimage(j * SKELLY_WIDTH_DEFAULT, i * SKELLY_HEIGHT_DEFAULT, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
 			}
 		}

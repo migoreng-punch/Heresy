@@ -27,7 +27,7 @@ public class LoadSave {
 	public static final String VOLUME_BUTTONS = "volume_buttons.png";
 	public static final String MENU_BACKGROUND_IMG = "background_Town1.png";
 	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
-	public static final String SKELETON_SPRITE = "skeleton_other_sprites.png";
+	public static final String SKELETON_SPRITE = "crabby_sprite.png";
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) { 
 		BufferedImage img = null;
@@ -58,6 +58,9 @@ public class LoadSave {
 				int value = color.getGreen(); 
 				if(value == SKELLY) {
 					list.add(new Skelly(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
+					float pos1 = j * Game.TILES_SIZE;
+					float pos2 = i * Game.TILES_SIZE;
+					System.out.println("Position" + " " + pos1 + " " + pos2);
 				}
 			}		
 		}
