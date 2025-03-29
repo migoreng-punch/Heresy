@@ -28,6 +28,7 @@ public class LoadSave {
 	public static final String MENU_BACKGROUND_IMG = "background_Town1.png";
 	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
 	public static final String SKELETON_SPRITE = "crabby_sprite.png";
+	public static final String STATUS_BAR = "Player_healthbar.png";
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) { 
 		BufferedImage img = null;

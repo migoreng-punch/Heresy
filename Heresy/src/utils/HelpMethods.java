@@ -38,9 +38,8 @@ public class HelpMethods {
 		if(value >= 48 || value < 0 || value != 11) {
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 	
 //	private static boolean IsSolid(float x , float y, int[][] lvlData) {

@@ -16,7 +16,7 @@ import static utils.HelpMethods.CanMoveHere;
 public abstract class Enemy extends Entity {
 	
 	protected int aniIndex, enemyState, enemyType;
-	protected int aniTick, aniSpeed = 10;
+	protected int aniTick, aniSpeed = 15;
 	protected boolean firstUpdate = true, inAir = false;
 	protected float fallSpeed, gravity = 0.04f * Game.SCALE;
 	protected float walkSpeed = 1.0f * Game.SCALE;
@@ -33,8 +33,9 @@ public abstract class Enemy extends Entity {
 	protected void firstUpdateCheck(int[][] lvlData) {
 		if(!IsEntityOnFloor(hitBox, lvlData)) {
 			inAir = true;
-			firstUpdate = false;
+			
 		}
+		firstUpdate = false;	
 	}
 	
 	protected void updateInAir(int[][] lvlData) {
