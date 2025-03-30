@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
+import ui.GameOverOverlay;
 import ui.PauseOverlay;
 import utils.LoadSave;
 
@@ -17,6 +19,7 @@ public class Playing extends State implements StateMethods {
 	private Player player;
 	private LevelManager levelManager;
 	private EnemyManager enemyManager;
+	private GameOverOverlay gameOverOverlay;
 	private PauseOverlay pauseOverlay;
 	private boolean paused = false;
 	
@@ -28,6 +31,7 @@ public class Playing extends State implements StateMethods {
 	private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 	
 	private BufferedImage backgroundImg;
+	private boolean gameOver;
 	
 	public Playing(Game game) {
 		super(game);
@@ -39,16 +43,17 @@ public class Playing extends State implements StateMethods {
 	private void initClasses() {
 		levelManager = new LevelManager(game);
 		enemyManager = new EnemyManager(this);
-		player = new Player(200 , 200, (int) (50 * Game.SCALE), (int) (37 * Game.SCALE));
+		player = new Player(200 , 200, (int) (50 * Game.SCALE), (int) (37 * Game.SCALE), this);
 		player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
 		pauseOverlay = new PauseOverlay(this);
+		gameOverOverlay = new GameOverOverlay(this);
 	}
 	
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if(!paused) {
+		if(!paused && !gameOver) {
 			levelManager.update();
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
@@ -90,86 +95,104 @@ public class Playing extends State implements StateMethods {
 			g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 			pauseOverlay.draw(g);
 		}
+		else if(gameOver) {
+			gameOverOverlay.draw(g);
+		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {
+		if(gameOver) {
+			gameOverOverlay.keyPressed(e);
+		}else {
+			switch(e.getKeyCode()) {
 		
-		case KeyEvent.VK_A:
-			player.setLeft(true);
-			break;
-//		case KeyEvent.VK_S:
-//			gamePanel.getGame().getPlayer().setDown(true);
-//			break;
-		case KeyEvent.VK_D:
-			player.setRight(true);
-			break;	
-		case KeyEvent.VK_SPACE:
-			player.setJump(true);
-			break;
-		case KeyEvent.VK_ESCAPE:
-			paused = !paused;
-			break;
+			case KeyEvent.VK_A:
+				player.setLeft(true);
+				break;
+//			case KeyEvent.VK_S:
+//				gamePanel.getGame().getPlayer().setDown(true);
+//				break;
+			case KeyEvent.VK_D:
+				player.setRight(true);
+				break;	
+			case KeyEvent.VK_SPACE:
+				player.setJump(true);
+				break;
+			case KeyEvent.VK_ESCAPE:
+				paused = !paused;
+				break;
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {
-		case KeyEvent.VK_A:
-			player.setLeft(false);
-			break;
-//		case KeyEvent.VK_S:
-//			gamePanel.getGame().getPlayer().setDown(false);
-//			break;
-		case KeyEvent.VK_D:
-			player.setRight(false);
-			break;
-		case KeyEvent.VK_SPACE:
-			player.setJump(false);
-			break;
+		if(!gameOver) {
+			switch(e.getKeyCode()) {
+			case KeyEvent.VK_A:
+				player.setLeft(false);
+				break;
+//			case KeyEvent.VK_S:
+//				gamePanel.getGame().getPlayer().setDown(false);
+//				break;
+			case KeyEvent.VK_D:
+				player.setRight(false);
+				break;
+			case KeyEvent.VK_SPACE:
+				player.setJump(false);
+				break;
+			}
 		}
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		if(paused) {
-			pauseOverlay.mouseDragged(e);
+		if(!gameOver) {
+			if(paused) {
+				pauseOverlay.mouseDragged(e);
+			}
 		}
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getButton() == MouseEvent.BUTTON1) {
-			player.setAttack(true);
+		if(!gameOver) {
+			if(e.getButton() == MouseEvent.BUTTON1) {
+				player.setAttack(true);
+			}
 		}
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(paused) {
-			pauseOverlay.mousePressed(e);
+		if(!gameOver) {
+			if(paused) {
+				pauseOverlay.mousePressed(e);
+			}
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(paused) {
-			pauseOverlay.mouseReleased(e);
+		if(!gameOver) {
+			if(paused) {
+				pauseOverlay.mouseReleased(e);
+			}
 		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(paused) {
-			pauseOverlay.mouseMoved(e);
+		if(!gameOver) {
+			if(paused) {
+				pauseOverlay.mouseMoved(e);
+			}
 		}
 	}
 	
@@ -184,6 +207,22 @@ public class Playing extends State implements StateMethods {
 	public void windowFocusLost() {
 		// TODO Auto-generated method stub
 		player.resetDirBooleans();
+	}
+	
+	public void resetAll() {
+		// Reset GAME
+		gameOver = false;
+		paused = false;
+		player.resetAll();
+		enemyManager.resetAllEnemies();
+	}
+	
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+	
+	public void checkEnemyHit(Rectangle2D.Float attackBox) {
+		enemyManager.checkEnemyHit(attackBox);
 	}
 
 }

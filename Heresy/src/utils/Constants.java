@@ -69,6 +69,24 @@ public class Constants {
 			}
 			return 0;
 		}
+		
+		public static int GetMaxHealth(int enemy_Type) {
+			switch(enemy_Type) {
+			case SKELLY:
+				return 10;
+			default:
+				return 1;
+			}
+		}
+		
+		public static int GetEnemyDmg(int enemy_Type) {
+			switch(enemy_Type) {
+			case SKELLY:
+				return 15;
+			default:
+				return 0;
+			}
+		}
 	}
 	
 	public static class UI{

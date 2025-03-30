@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -27,7 +28,9 @@ public class EnemyManager {
 
 	public void update(int[][] lvlData, Player player) {
 		for(Skelly s: skellies) {
-			s.update(lvlData, player);
+			if(s.isActive()) {
+				s.update(lvlData, player);
+			}
 		}
 	}
 	
@@ -36,9 +39,25 @@ public class EnemyManager {
 	}
 
 	private void drawSkellies(Graphics g, int xLvlOffset) {
-		for(Skelly s: skellies) {
-			g.drawImage(skellyArr[s.getEnemyState()][s.getAniIndex()], (int) s.getHitbox().x - xLvlOffset - SKELLY_DRAWOFFSET_X, (int) s.getHitbox().y - SKELLY_DRAWOFFSET_Y, SKELLY_WIDTH, SKELLY_HEIGHT, null);
-			s.drawHitbox(g, xLvlOffset);
+		for(Skelly s: skellies)	 
+			if(s.isActive()){
+			g.drawImage(skellyArr[s.getEnemyState()][s.getAniIndex()], 
+					(int) s.getHitbox().x - xLvlOffset - SKELLY_DRAWOFFSET_X + s.flipX() - 8, 
+					(int) s.getHitbox().y - SKELLY_DRAWOFFSET_Y, 
+					SKELLY_WIDTH * s.flipW(), 
+					SKELLY_HEIGHT, null);
+//			s.drawHitbox(g, xLvlOffset);
+//			s.drawAttackBox(g, xLvlOffset);
+		}
+	}
+	
+	public void checkEnemyHit(Rectangle2D.Float attackBox) {
+		for(Skelly s: skellies) 
+			if(s.isActive()){
+			if(attackBox.intersects(s.getHitbox())) {
+				s.hurt(10);
+				return;
+			}
 		}
 	}
 
@@ -50,6 +69,13 @@ public class EnemyManager {
 			for(int j = 0; j < skellyArr[i].length; j++) {
 				skellyArr[i][j] = temp.getSubimage(j * SKELLY_WIDTH_DEFAULT, i * SKELLY_HEIGHT_DEFAULT, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
 			}
+		}
+	}
+
+	public void resetAllEnemies() {
+		// TODO Auto-generated method stub
+		for(Skelly s : skellies) {
+			s.resetEnemy();
 		}
 	}
 }
