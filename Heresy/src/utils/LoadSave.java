@@ -16,9 +16,9 @@ import main.Game;
 public class LoadSave {
 	
 	public static final String PLAYER_ATLAS = "adventurer_sprites_v1.png";
-	public static final String LEVEL_ATLAS = "outside_sprites.png";
+	public static final String LEVEL_ATLAS = "oak_woods_tileset.png";
 //	public static final String LEVEL_TEMP_DATA = "level_temp_v1.png";
-	public static final String LEVEL_TEMP_DATA = "level_one_data_long.png";
+	public static final String LEVEL_TEMP_DATA = "newlevel1.png";
 	public static final String MENU_BUTTONS = "button_atlas.png";
 	public static final String MENU_BACKGROUND = "menu_background.png";
 	public static final String PAUSE_BACKGROUND = "pause_menu.png";
@@ -27,7 +27,7 @@ public class LoadSave {
 	public static final String VOLUME_BUTTONS = "volume_buttons.png";
 	public static final String MENU_BACKGROUND_IMG = "background_Town1.png";
 	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
-	public static final String SKELETON_SPRITE = "crabby_sprite.png";
+	public static final String SKELETON_SPRITE = "Skeleton_warrior.png";
 	public static final String STATUS_BAR = "Player_healthbar.png";
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) { 

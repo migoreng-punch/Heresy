@@ -14,7 +14,7 @@ public class Skelly extends Enemy{
 
 	public Skelly(float x, float y) {
 		super(x, y, SKELLY_WIDTH, SKELLY_HEIGHT, SKELLY);
-		initHitbox(x, y, (int) (22 * Game.SCALE), (int) (19 * Game.SCALE));
+		initHitbox(x, y, (int) (12 * Game.SCALE), (int) (29 * Game.SCALE));
 	}
 	
 	public void update(int[][] lvlData, Player player) {

@@ -43,7 +43,7 @@ public class EnemyManager {
 	}
 
 	private void loadEnemyImgs() {
-		skellyArr = new BufferedImage[5][9];
+		skellyArr = new BufferedImage[5][13];
 		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE);
 		
 		for(int i = 0; i < skellyArr.length; i++) {

@@ -18,30 +18,30 @@ public class LevelManager {
 		levelTemp = new Level(LoadSave.GetLevelData());
 	}
 	
-	private void importOutsideSprites() {
-		// TODO Auto-generated method stub
-		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
-		levelSprite = new BufferedImage[48];
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 12; j++) {
-				int index = i * 12 + j; 
-				levelSprite[index] = img.getSubimage(j * 32, i * 32, 32, 32);
-			}
-		}
-	}
-	
-	
 //	private void importOutsideSprites() {
 //		// TODO Auto-generated method stub
 //		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
-//		levelSprite = new BufferedImage[315];
-//		for(int i = 0; i < 15; i++) {
-//			for(int j = 0; j < 21; j++) {
-//				int index = i * 21 + j; 
-//				levelSprite[index] = img.getSubimage(j * 24, i * 24, 24, 24);
+//		levelSprite = new BufferedImage[48];
+//		for(int i = 0; i < 4; i++) {
+//			for(int j = 0; j < 12; j++) {
+//				int index = i * 12 + j; 
+//				levelSprite[index] = img.getSubimage(j * 32, i * 32, 32, 32);
 //			}
 //		}
 //	}
+	
+	
+	private void importOutsideSprites() {
+		// TODO Auto-generated method stub
+		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
+		levelSprite = new BufferedImage[315];
+		for(int i = 0; i < 15; i++) {
+			for(int j = 0; j < 21; j++) {
+				int index = i * 21 + j; 
+				levelSprite[index] = img.getSubimage(j * 24, i * 24, 24, 24);
+			}
+		}
+	}
 
 	public void draw(Graphics g, int lvlOffset) {
 		for(int i = 0; i < game.TILES_IN_HEIGHT; i++) {

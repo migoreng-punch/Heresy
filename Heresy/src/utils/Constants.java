@@ -10,19 +10,19 @@ public class Constants {
 		
 		
 		public static final int IDLE = 0;
-		public static final int RUNNING = 1;
-		public static final int ATTACK_1 = 2;
+		public static final int RUNNING = 2;
+		public static final int ATTACK_1 = 1;
 		public static final int HIT = 3;
 		public static final int DEAD = 4;
 		
-		public static final int SKELLY_WIDTH_DEFAULT = 72;
-		public static final int SKELLY_HEIGHT_DEFAULT = 32;
+		public static final int SKELLY_WIDTH_DEFAULT = 48;
+		public static final int SKELLY_HEIGHT_DEFAULT = 48;
 		
 		public static final int SKELLY_WIDTH = (int) (SKELLY_WIDTH_DEFAULT * Game.SCALE);
 		public static final int SKELLY_HEIGHT = (int) (SKELLY_HEIGHT_DEFAULT * Game.SCALE);
 		
-		public static final int SKELLY_DRAWOFFSET_X = (int) (26 * Game.SCALE);
-		public static final int SKELLY_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
+		public static final int SKELLY_DRAWOFFSET_X = (int) (13 * Game.SCALE);
+		public static final int SKELLY_DRAWOFFSET_Y = (int) (14 * Game.SCALE);
 		
 //		public static final int IDLE = 0;
 //		public static final int RUNNING = 1;
@@ -45,15 +45,15 @@ public class Constants {
 			case SKELLY:
 				switch(enemy_state) {
 					case IDLE:
-						return 9;
+						return 8;
 					case RUNNING:
 						return 6;
 					case ATTACK_1:
-						return 7;
+						return 13;
 					case HIT:
-						return 4;
-					case DEAD:
 						return 5;
+					case DEAD:
+						return 12;
 //					case IDLE:
 //						return 8;
 //					case RUNNING:
