@@ -91,7 +91,7 @@ public class PauseOverlay {
 		unpauseB.draw(g);
 		
 		//Volume Button
-		volumeButton.draw(g);
+//		volumeButton.draw(g);
 	}
 	
 	public void mousePressed(MouseEvent e) {
