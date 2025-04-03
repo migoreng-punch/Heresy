@@ -1,12 +1,14 @@
 package levels;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import entities.Skelly;
 import main.Game;
 import static utils.HelpMethods.GetLevelData;
-import static utils.HelpMethods.*;
+import static utils.HelpMethods.GetPlayerSpawn;
+import static utils.HelpMethods.getSkellies;
 
 
 public class Level {
@@ -17,15 +19,20 @@ public class Level {
 	private int lvlTilesWide;
 	private int maxTilesOffset;
 	private int maxLvlOffsetX;
+	private Point playerSpawn;
 	
 	public Level(BufferedImage img) {
 		this.img = img;
 		creatLevelData();
 		createEnemies();
 		calcLvlOffsets();
-		
+		calcPlayerSpawn();
 	}
 	
+	private void calcPlayerSpawn() {
+		playerSpawn = GetPlayerSpawn(img);
+	}
+
 	private void calcLvlOffsets() {
 		lvlTilesWide = img.getWidth();
 		maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
@@ -54,5 +61,9 @@ public class Level {
 	
 	public ArrayList<Skelly> getSkelly(){
 		return skellies;
+	}
+	
+	public Point getPlayerSpawn() {
+		return playerSpawn;
 	}
 }
