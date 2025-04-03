@@ -1,7 +1,13 @@
-package utils;
+ package utils;
 
+import static utils.Constants.EnemyConstants.SKELLY;
+
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import entities.Skelly;
 import main.Game;
 
 public class HelpMethods {
@@ -131,5 +137,39 @@ public class HelpMethods {
 		}else {
 			return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
 		}
+	}
+	
+	public static int[][] GetLevelData(BufferedImage img){
+		int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+		
+		for(int i = 0; i < img.getHeight(); i++) {
+			for(int j = 0; j < img.getWidth(); j++) {
+				Color color = new Color(img.getRGB(j, i));
+				int value = color.getRed(); 
+				if(value >= 48) {
+					value = 0;
+				}
+				lvlData[i][j] = value;
+			}
+		}
+		return lvlData;
+	}
+	
+	public static ArrayList<Skelly> getSkellies(BufferedImage img){
+		ArrayList<Skelly> list = new ArrayList<>();
+		
+		for(int i = 0; i < img.getHeight(); i++) {
+			for(int j = 0; j < img.getWidth(); j++) {
+				Color color = new Color(img.getRGB(j, i));
+				int value = color.getGreen(); 
+				if(value == SKELLY) {
+					list.add(new Skelly(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
+					float pos1 = j * Game.TILES_SIZE;
+					float pos2 = i * Game.TILES_SIZE;
+					System.out.println("Position" + " " + pos1 + " " + pos2);
+				}
+			}		
+		}
+		return list;
 	}
 }

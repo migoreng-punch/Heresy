@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gamestates.Playing;
+import levels.Level;
 import utils.LoadSave;
 import static utils.Constants.EnemyConstants.*;
 
@@ -18,19 +19,23 @@ public class EnemyManager {
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		loadEnemyImgs();
-		addEnemies();
 	}
 	
-	private void addEnemies() {
-		skellies = LoadSave.getSkellies();
+	public void loadEnemies(Level level) {
+		skellies = level.getSkelly();
 		System.out.println("size of skellies: " + skellies.size());
 	}
 
 	public void update(int[][] lvlData, Player player) {
+		boolean isAnyActive = false;
 		for(Skelly s: skellies) {
 			if(s.isActive()) {
 				s.update(lvlData, player);
+				isAnyActive = true;
 			}
+		}
+		if(!isAnyActive) {
+			playing.setLevelCompleted(true);
 		}
 	}
 	

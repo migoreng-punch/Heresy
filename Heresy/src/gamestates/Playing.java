@@ -12,6 +12,7 @@ import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import ui.GameOverOverlay;
+import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
 import utils.LoadSave;
 
@@ -20,26 +21,41 @@ public class Playing extends State implements StateMethods {
 	private LevelManager levelManager;
 	private EnemyManager enemyManager;
 	private GameOverOverlay gameOverOverlay;
+	private LevelCompletedOverlay levelCompletedOverlay;
 	private PauseOverlay pauseOverlay;
 	private boolean paused = false;
 	
 	private int xLvlOffset;
 	private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
 	private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
-	private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
-	private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-	private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
+	private int maxLvlOffsetX;
 	
 	private BufferedImage backgroundImg;
 	private boolean gameOver;
+	private boolean lvlCompleted;
 	
 	public Playing(Game game) {
 		super(game);
 		initClasses();
 		
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
+		calcLvlOffset();
+		loadStartLevel();
 	}
 	
+	public void loadNextLevel() {
+		resetAll();
+		levelManager.loadNextLevel();
+	}
+	
+	private void loadStartLevel() {
+		enemyManager.loadEnemies(levelManager.getCurrentLevel());
+	}
+
+	private void calcLvlOffset() {
+		maxLvlOffsetX = levelManager.getCurrentLevel().getLvlOffset();
+	}
+
 	private void initClasses() {
 		levelManager = new LevelManager(game);
 		enemyManager = new EnemyManager(this);
@@ -47,20 +63,22 @@ public class Playing extends State implements StateMethods {
 		player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
 		pauseOverlay = new PauseOverlay(this);
 		gameOverOverlay = new GameOverOverlay(this);
+		levelCompletedOverlay = new LevelCompletedOverlay(this);
 	}
 	
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		if(!paused && !gameOver) {
+		if(paused) {
+			pauseOverlay.update();
+		}else if(lvlCompleted) {
+			levelCompletedOverlay.update();
+		}else if(!gameOver){
 			levelManager.update();
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkCloseToBorder();
-		}else {
-			pauseOverlay.update();
-		}	
+		}
 	}
 
 	private void checkCloseToBorder() {
@@ -97,7 +115,12 @@ public class Playing extends State implements StateMethods {
 		}
 		else if(gameOver) {
 			gameOverOverlay.draw(g);
+			
 		}
+		else if(lvlCompleted) {
+			levelCompletedOverlay.draw(g); 
+		}
+		
 	}
 
 	@Override
@@ -161,7 +184,7 @@ public class Playing extends State implements StateMethods {
 		// TODO Auto-generated method stub
 		if(!gameOver) {
 			if(e.getButton() == MouseEvent.BUTTON1) {
-				player.setAttack(true);
+				player.setAttack(true); 
 			}
 		}
 	}
@@ -173,6 +196,9 @@ public class Playing extends State implements StateMethods {
 			if(paused) {
 				pauseOverlay.mousePressed(e);
 			}
+			else if(lvlCompleted) {
+				levelCompletedOverlay.mousePressed(e);
+			}
 		}
 	}
 
@@ -182,6 +208,9 @@ public class Playing extends State implements StateMethods {
 		if(!gameOver) {
 			if(paused) {
 				pauseOverlay.mouseReleased(e);
+			}			
+			else if(lvlCompleted) {
+				levelCompletedOverlay.mouseReleased(e);
 			}
 		}
 	}
@@ -193,7 +222,18 @@ public class Playing extends State implements StateMethods {
 			if(paused) {
 				pauseOverlay.mouseMoved(e);
 			}
+			else if(lvlCompleted) {
+				levelCompletedOverlay.mouseMoved(e);
+			}
 		}
+	}
+	
+	public void setLevelCompleted(boolean lvlCompleted) {
+		this.lvlCompleted = lvlCompleted;
+	}
+	
+	public void setMaxLvlOffset(int lvlOffset) {
+		this.maxLvlOffsetX = lvlOffset;
 	}
 	
 	public void unpauseGame() {
@@ -213,6 +253,7 @@ public class Playing extends State implements StateMethods {
 		// Reset GAME
 		gameOver = false;
 		paused = false;
+		lvlCompleted = false;
 		player.resetAll();
 		enemyManager.resetAllEnemies();
 	}
@@ -223,6 +264,10 @@ public class Playing extends State implements StateMethods {
 	
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
 		enemyManager.checkEnemyHit(attackBox);
+	}
+	
+	public EnemyManager getEnemyManager() {
+		return enemyManager;
 	}
 
 }
