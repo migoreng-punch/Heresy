@@ -1,6 +1,7 @@
 package gamestates;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -33,6 +34,9 @@ public class Playing extends State implements StateMethods {
 	private BufferedImage backgroundImg;
 	private boolean gameOver;
 	private boolean lvlCompleted;
+	private long startTime = System.currentTimeMillis();
+	private long pausedTime = 0;
+
 	
 	public Playing(Game game) {
 		super(game);
@@ -104,26 +108,50 @@ public class Playing extends State implements StateMethods {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-		
-		levelManager.draw(g, xLvlOffset);
-		player.render(g, xLvlOffset);
-		enemyManager.draw(g, xLvlOffset);
-		
-		if(paused) {
-			g.setColor(new Color(0,0,0,150));
-			g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-			pauseOverlay.draw(g);
-		}
-		else if(gameOver) {
-			gameOverOverlay.draw(g);
-			
-		}
-		else if(lvlCompleted) {
-			levelCompletedOverlay.draw(g); 
-		}
-		
+	    g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+
+	    levelManager.draw(g, xLvlOffset);
+	    player.render(g, xLvlOffset);
+	    enemyManager.draw(g, xLvlOffset);
+
+	    // Calculate elapsed time in seconds
+	    long elapsedTime;
+	    if (paused) {
+	        elapsedTime = pausedTime / 1000;  
+	    } else {
+	        elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+	    }
+
+	    int minutes = (int) (elapsedTime / 60);
+	    int seconds = (int) (elapsedTime % 60);
+
+	    String timerText = String.format("%02d:%02d", minutes, seconds);
+
+	    g.setFont(new Font("Monospaced", Font.BOLD, 25));
+	    g.setColor(Color.WHITE);
+	    int textWidth = g.getFontMetrics().stringWidth(timerText);
+	    g.drawString(timerText, (Game.GAME_WIDTH - textWidth) / 2, 50);
+
+	    // Draw overlays based on game state
+	    if (paused) {
+	        g.setColor(new Color(0, 0, 0, 150));
+	        g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
+	        pauseOverlay.draw(g);
+	    } else if (gameOver) {
+	        gameOverOverlay.draw(g);
+	    } else if (lvlCompleted) {
+	        levelCompletedOverlay.draw(g);
+	    }
+	}
+
+	public void togglePause() {
+	    if (paused) {
+	        startTime = System.currentTimeMillis() - pausedTime;
+	        pausedTime = 0; 
+	    } else {
+	        pausedTime = System.currentTimeMillis() - startTime;
+	    }
+	    paused = !paused; 
 	}
 
 	@Override
