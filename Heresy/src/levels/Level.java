@@ -8,6 +8,7 @@ import entities.Skelly;
 import main.Game;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Spike;
 import utils.HelpMethods;
 
 import static utils.HelpMethods.GetLevelData;
@@ -21,6 +22,7 @@ public class Level {
 	private int[][] lvlData;
 	private ArrayList<Skelly> skellies;
 	private ArrayList<Potion> potions;
+	private ArrayList<Spike> spikes;
 	private ArrayList<GameContainer> containers;
 	private int lvlTilesWide;
 	private int maxTilesOffset;
@@ -33,10 +35,15 @@ public class Level {
 		createEnemies();
 		createPotions();
 		createContainers();
+		createSpikes();
 		calcLvlOffsets();
 		calcPlayerSpawn();
 	}
 	
+	private void createSpikes() {
+		spikes = HelpMethods.GetSpikes(img);
+	}
+
 	private void createContainers() {
 		containers = HelpMethods.GetContainers(img);
 	}
@@ -89,5 +96,9 @@ public class Level {
 	
 	public ArrayList<GameContainer> getGameContainer(){
 		return containers;
+	}
+	
+	public ArrayList<Spike> getSpike(){
+		return spikes;
 	}
 }

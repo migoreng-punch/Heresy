@@ -284,7 +284,6 @@ public class Playing extends State implements StateMethods {
 	}
 
 	public void windowFocusLost() {
-		// TODO Auto-generated method stub
 		player.resetDirBooleans();
 	}
 	
@@ -300,6 +299,10 @@ public class Playing extends State implements StateMethods {
 	
 	public void checkObjectHit(Rectangle2D.Float attackBox) {
 		objectManager.checkObjectHit(attackBox);
+	}
+	
+	public void checkSpikesTouched(Player p) {
+		objectManager.checkSpikesTouched(p);
 	}
 
 	
@@ -322,8 +325,8 @@ public class Playing extends State implements StateMethods {
 	public ObjectManager getObjectManager() {
 		return objectManager;
 	}
-
-
-
-
+	
+	public LevelManager getLevelManager() {
+		return levelManager;
+	}
 }

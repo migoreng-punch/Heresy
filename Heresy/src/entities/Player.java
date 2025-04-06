@@ -95,8 +95,10 @@ public class Player extends Entity {
 		}
 		updateAttackBox();
 		updatePosition();
-		if(moving)
+		if(moving) {
 			checkPotionTouched();
+			checkSpikesTouched();
+		}
 		if(attacking) {
 			checkAttack();
 		}
@@ -104,6 +106,10 @@ public class Player extends Entity {
 		setAnimation();
 	}
 	
+	private void checkSpikesTouched() {
+		playing.checkSpikesTouched(this);
+	}
+
 	private void checkPotionTouched() {
 		playing.checkPotionTouched(hitBox);
 	}
@@ -118,7 +124,6 @@ public class Player extends Entity {
 	}
 
 	private void updateAttackBox() {
-		// TODO Auto-generated method stub
 		if(right) {
 			attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 6);
 		}else if(left) {
@@ -298,6 +303,10 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void kill() {
+		currentHealth = 0;
+	}
+	
 	public void changePower(int power) {
 		System.out.println("Added Power!");
 	}
@@ -387,8 +396,4 @@ public class Player extends Entity {
 			inAir = true;
 		}
 	}
-
-
-	
-	
 }
