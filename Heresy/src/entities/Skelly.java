@@ -19,12 +19,11 @@ import main.Game;
 public class Skelly extends Enemy{
 	
 	//AttackBox
-	private Rectangle2D.Float attackBox;
 	private int attackBoxOffsetX;
 	
 	public Skelly(float x, float y) {
 		super(x, y, SKELLY_WIDTH, SKELLY_HEIGHT, SKELLY);
-		initHitbox(x, y, (int) (12 * Game.SCALE), (int) (29 * Game.SCALE));
+		initHitbox(12 ,29 ); //Resize Hitbox
 		initAttackBox();
 	}
 	
@@ -55,7 +54,7 @@ public class Skelly extends Enemy{
 		if(inAir) {
 			updateInAir(lvlData);
 		}else {
-			switch(enemyState) {
+			switch(state) {
 				case IDLE:
 					newState(RUNNING);
 					break;
@@ -68,10 +67,10 @@ public class Skelly extends Enemy{
 					move(lvlData);
 					break;
 				case ATTACK_1:
-					if(aniIndex == 0) {
+					if(animIndex == 0) {
 						attackChecked = false;
 					}
-					if(aniIndex == 7 && !attackChecked) {
+					if(animIndex == 7 && !attackChecked) {
 						checkEnemyHit(attackBox, player);
 					}
 					break;
@@ -80,12 +79,7 @@ public class Skelly extends Enemy{
 			}
 		}
 	}
-	
-
-	public void drawAttackBox(Graphics g, int xLvlOffset) {
-		g.setColor(Color.red);
-		g.drawRect(((int)attackBox.x - xLvlOffset),(int) attackBox.y,(int) attackBox.width,(int) attackBox.height);
-	}
+		
 	
 	public int flipX() {
 		if(walkDir == RIGHT) {

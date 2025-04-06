@@ -1,4 +1,4 @@
-package gamestates;
+	package gamestates;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,12 +6,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
+import objects.ObjectManager;
 import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
@@ -21,6 +23,7 @@ public class Playing extends State implements StateMethods {
 	private Player player;
 	private LevelManager levelManager;
 	private EnemyManager enemyManager;
+	private ObjectManager objectManager;
 	private GameOverOverlay gameOverOverlay;
 	private LevelCompletedOverlay levelCompletedOverlay;
 	private PauseOverlay pauseOverlay;
@@ -55,6 +58,7 @@ public class Playing extends State implements StateMethods {
 	
 	private void loadStartLevel() {
 		enemyManager.loadEnemies(levelManager.getCurrentLevel());
+		objectManager.loadObjects(levelManager.getCurrentLevel());
 	}
 
 	private void calcLvlOffset() {
@@ -64,6 +68,8 @@ public class Playing extends State implements StateMethods {
 	private void initClasses() {
 		levelManager = new LevelManager(game);
 		enemyManager = new EnemyManager(this);
+		objectManager = new ObjectManager(this);
+		
 		player = new Player(200 , 200, (int) (50 * Game.SCALE), (int) (37 * Game.SCALE), this);
 		player.loadLevelData(levelManager.getCurrentLevel().getLevelData());
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
@@ -82,6 +88,7 @@ public class Playing extends State implements StateMethods {
 			levelCompletedOverlay.update();
 		}else if(!gameOver){
 			levelManager.update();
+			objectManager.update();
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkCloseToBorder();
@@ -113,6 +120,7 @@ public class Playing extends State implements StateMethods {
 	    levelManager.draw(g, xLvlOffset);
 	    player.render(g, xLvlOffset);
 	    enemyManager.draw(g, xLvlOffset);
+	    objectManager.draw(g, xLvlOffset);
 
 	    // Calculate elapsed time in seconds
 	    long elapsedTime;
@@ -287,7 +295,13 @@ public class Playing extends State implements StateMethods {
 		lvlCompleted = false;
 		player.resetAll();
 		enemyManager.resetAllEnemies();
+		objectManager.resetAllObjects();
 	}
+	
+	public void checkObjectHit(Rectangle2D.Float attackBox) {
+		objectManager.checkObjectHit(attackBox);
+	}
+
 	
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
@@ -297,8 +311,19 @@ public class Playing extends State implements StateMethods {
 		enemyManager.checkEnemyHit(attackBox);
 	}
 	
+	public void checkPotionTouched(Rectangle2D.Float hitBox) {
+		objectManager.checkObjectTouched(hitBox);
+	}
+	
 	public EnemyManager getEnemyManager() {
 		return enemyManager;
 	}
+	
+	public ObjectManager getObjectManager() {
+		return objectManager;
+	}
+
+
+
 
 }

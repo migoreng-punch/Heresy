@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import entities.Skelly;
 import main.Game;
+import objects.GameContainer;
+import objects.Potion;
+import utils.HelpMethods;
+
 import static utils.HelpMethods.GetLevelData;
 import static utils.HelpMethods.GetPlayerSpawn;
 import static utils.HelpMethods.getSkellies;
@@ -16,6 +20,8 @@ public class Level {
 	private BufferedImage img;
 	private int[][] lvlData;
 	private ArrayList<Skelly> skellies;
+	private ArrayList<Potion> potions;
+	private ArrayList<GameContainer> containers;
 	private int lvlTilesWide;
 	private int maxTilesOffset;
 	private int maxLvlOffsetX;
@@ -25,10 +31,20 @@ public class Level {
 		this.img = img;
 		creatLevelData();
 		createEnemies();
+		createPotions();
+		createContainers();
 		calcLvlOffsets();
 		calcPlayerSpawn();
 	}
 	
+	private void createContainers() {
+		containers = HelpMethods.GetContainers(img);
+	}
+
+	private void createPotions() {
+		potions = HelpMethods.GetPotions(img);
+	}
+
 	private void calcPlayerSpawn() {
 		playerSpawn = GetPlayerSpawn(img);
 	}
@@ -65,5 +81,13 @@ public class Level {
 	
 	public Point getPlayerSpawn() {
 		return playerSpawn;
+	}
+	
+	public ArrayList<Potion> getPotion(){
+		return potions;
+	}
+	
+	public ArrayList<GameContainer> getGameContainer(){
+		return containers;
 	}
 }

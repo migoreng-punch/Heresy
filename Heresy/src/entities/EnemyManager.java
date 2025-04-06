@@ -46,13 +46,13 @@ public class EnemyManager {
 	private void drawSkellies(Graphics g, int xLvlOffset) {
 		for(Skelly s: skellies)	 
 			if(s.isActive()){
-			g.drawImage(skellyArr[s.getEnemyState()][s.getAniIndex()], 
+			g.drawImage(skellyArr[s.getState()][s.getAniIndex()], 
 					(int) s.getHitbox().x - xLvlOffset - SKELLY_DRAWOFFSET_X + s.flipX() - 8, 
 					(int) s.getHitbox().y - SKELLY_DRAWOFFSET_Y, 
 					SKELLY_WIDTH * s.flipW(), 
 					SKELLY_HEIGHT, null);
-//			s.drawHitbox(g, xLvlOffset);
-//			s.drawAttackBox(g, xLvlOffset);
+			s.drawHitbox(g, xLvlOffset);
+			s.drawAttackBox(g, xLvlOffset);
 		}
 	}
 	
