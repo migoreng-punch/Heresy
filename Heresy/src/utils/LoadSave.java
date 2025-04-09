@@ -19,10 +19,10 @@ import main.Game;
 public class LoadSave {
 	
 	public static final String PLAYER_ATLAS = "adventurer_sprites_v1.png";
-	public static final String LEVEL_ATLAS = "oak_woods_tileset.png";
+	public static final String LEVEL_ATLAS = "game_tilesheets_heresy.png";
 //	public static final String LEVEL_TEMP_DATA = "level_temp_v1.png";
-	public static final String MENU_BUTTONS = "new_ver_buttons.png";
-	public static final String MENU_BACKGROUND = "menu_with_title.png";
+	public static final String MENU_BUTTONS = "menu_buttons_heresy.png";
+	public static final String MENU_BACKGROUND = "menu_backdrop_heresy.png";
 	public static final String PAUSE_BACKGROUND = "menu_anotha_one.png";
 	public static final String SOUND_BUTTONS = "new_sound_btns.png";
 	public static final String URM_BUTTONS = "new_urm_btns.png";
@@ -37,6 +37,7 @@ public class LoadSave {
 	public static final String CONTAINER_ATLAS = "destructibles_sprites.png";
 	public static final String TRAP_ATLAS = "trap_atlas.png";
 	public static final String DEATH_SCREEN = "death_screen_heresy.png";
+	public static final String OPTIONS_MENU = "options_background_heresy.png";
 
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) { 

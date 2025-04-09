@@ -46,7 +46,7 @@ public class HelpMethods {
 	public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
 		int value = lvlData[ yTile][ xTile];
 		
-		if(value >= 315 || value < 0 || value != 4) {
+		if(value >= 351 || value < 0 || value != 4) {
 			return true;
 		}
 
@@ -151,7 +151,7 @@ public class HelpMethods {
 			for(int j = 0; j < img.getWidth(); j++) {
 				Color color = new Color(img.getRGB(j, i));
 				int value = color.getRed(); 
-				if(value >= 48) {
+				if(value >= 351) {
 					value = 0;
 				}
 				lvlData[i][j] = value;
