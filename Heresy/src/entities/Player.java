@@ -22,6 +22,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import audio.AudioPlayer;
 import gamestates.Playing;
 import main.Game;
 import utils.LoadSave;
@@ -95,8 +96,11 @@ public class Player extends Entity {
 				animTick = 0;
 				animIndex = 0;
 				playing.setPlayerDying(true);
+				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
 			}else if(animIndex == GetSpriteAmount(DIE) - 1 && animTick >= ANI_SPEED - 1 ) {
 				playing.setGameOver(true);
+				playing.getGame().getAudioPlayer().stopSong();
+				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
 			}else {
 				updateAnimationTick();
 				
@@ -132,6 +136,7 @@ public class Player extends Entity {
 		attackChecked = true;
 		playing.checkEnemyHit(attackBox);
 		playing.checkObjectHit(attackBox);
+		playing.getGame().getAudioPlayer().playAttackSound();
 	}
 
 	private void updateAttackBox() {
@@ -283,7 +288,7 @@ public class Player extends Entity {
 		if(inAir){
 			return;
 		}
-		
+		playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
 		inAir = true;
 		airSpeed = jumpSpeed;
 	}

@@ -11,10 +11,11 @@ import main.Game;
 public class AudioOptions {
 	
 	private SoundButton musicButton, sfxButton;
-
-
 	
-	public AudioOptions() {
+	private Game game;
+	
+	public AudioOptions(Game game) {
+		this.game = game;
 		createSoundButtons();
 	}
 	
@@ -48,10 +49,12 @@ public class AudioOptions {
 		if(isIn(e, musicButton)) {
 			if(musicButton.isMousePressed()) {
 				musicButton.setMuted(!musicButton.isMuted());
+				game.getAudioPlayer().toggleSongMute();
 			}
 		}else if(isIn(e, sfxButton)) {
 			if(sfxButton.isMousePressed()) {
 				sfxButton.setMuted(!sfxButton.isMuted());
+				game.getAudioPlayer().toggleEffectsMute();
 			}
 		}
 		
