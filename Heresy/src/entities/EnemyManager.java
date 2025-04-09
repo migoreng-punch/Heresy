@@ -59,11 +59,12 @@ public class EnemyManager {
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
 		for(Skelly s: skellies) 
 			if(s.isActive()){
-			if(attackBox.intersects(s.getHitbox())) {
-				s.hurt(10);
-				return;
+				if(s.getCurrentHealth() > 0)
+					if(attackBox.intersects(s.getHitbox())) {
+						s.hurt(10);
+						return;
+					}
 			}
-		}
 	}
 
 	private void loadEnemyImgs() {
@@ -78,7 +79,6 @@ public class EnemyManager {
 	}
 
 	public void resetAllEnemies() {
-		// TODO Auto-generated method stub
 		for(Skelly s : skellies) {
 			s.resetEnemy();
 		}
