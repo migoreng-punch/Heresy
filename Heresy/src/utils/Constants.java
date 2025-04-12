@@ -45,6 +45,7 @@ public class Constants {
 	
 	public static class EnemyConstants{
 		public static final int SKELLY = 0;
+		public static final int SLIME = 1;
 		
 		
 		
@@ -62,6 +63,13 @@ public class Constants {
 		
 		public static final int SKELLY_DRAWOFFSET_X = (int) (13 * Game.SCALE);
 		public static final int SKELLY_DRAWOFFSET_Y = (int) (14 * Game.SCALE);
+		
+		public static final int SLIME_WIDTH_DEFAULT = 32;
+		public static final int SLIME_HEIGHT_DEFAULT = 25;
+		public static final int SLIME_WIDTH = (int) (SLIME_WIDTH_DEFAULT * Game.SCALE);
+		public static final int SLIME_HEIGHT = (int) (SLIME_HEIGHT_DEFAULT * Game.SCALE);
+		
+		
 		
 //		public static final int IDLE = 0;
 //		public static final int RUNNING = 1;
@@ -112,7 +120,7 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_Type) {
 			switch(enemy_Type) {
 			case SKELLY:
-				return 10;
+				return 50;
 			default:
 				return 1;
 			}

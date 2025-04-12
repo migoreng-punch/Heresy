@@ -9,6 +9,7 @@ import static utils.Constants.PlayerConstants.GetSpriteAmount;
 import static utils.Constants.PlayerConstants.IDLE;
 import static utils.Constants.PlayerConstants.RUNNING;
 import static utils.Constants.PlayerConstants.ATTACK_1;
+import static utils.Constants.PlayerConstants.HURT;
 import static utils.HelpMethods.*;
 import static utils.Constants.*;
 
@@ -99,6 +100,7 @@ public class Player extends Entity {
 	
 	private void initAttackBox() {
 		attackBox = new Rectangle2D.Float(x, y, (int) (15 * Game.SCALE), (int) (27 * Game.SCALE) );
+		resetAttackbox();
 	}
 
 	public void update() {
@@ -168,7 +170,9 @@ public class Player extends Entity {
 	}
 
 	private void updateAttackBox() {
-		if(right || (powerAttackActive && flipW == 1)) {
+		if(right && left) {
+
+		}else if(right || (powerAttackActive && flipW == 1)) {
 			attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 6);
 		}else if(left || (powerAttackActive && flipW == -1)) {
 			attackBox.x = hitBox.x - hitBox.width - (int) (Game.SCALE * 5);
@@ -236,6 +240,10 @@ public class Player extends Entity {
 	private void setAnimation() {
 		int startAnim = state;
 		
+		if(state == HURT) {
+			return;
+		}
+		
 		
 		if(moving) {
 			state = RUNNING;
@@ -297,24 +305,24 @@ public class Player extends Entity {
 		
 		float xSpeed = 0;
 		
-		if(left) {
+		if(left && !right) {
 			xSpeed -= walkSpeed;
 			flipX = width;
 			flipW = -1;
 		}
-		if(right){
+		if(right && !left){
 			xSpeed += walkSpeed;
 			flipX = 0;
 			flipW = 1;
 		}
 		
 		if(powerAttackActive) {
-			if(!left && !right) {
-				if(flipW == -1) {
-					xSpeed = -walkSpeed;
-				}else {
-					xSpeed = walkSpeed;
-				}
+			if((!left && !right) || (left && right)) {
+					if(flipW == -1) {
+						xSpeed = -walkSpeed;
+						}else {
+							xSpeed = walkSpeed;
+					}
 			}
 			xSpeed *= 3;
 		}
@@ -469,19 +477,28 @@ public class Player extends Entity {
 	}
 
 	public void resetAll() {
-		// TODO Auto-generated method stub
 		resetDirBooleans();
 		inAir = false;
 		attacking = false;
 		moving = false;
+		airSpeed = 0f;
 		state = IDLE;
 		currentHealth = maxHealth;
 		
 		hitBox.x = x;
 		hitBox.y = y;
+		resetAttackbox();
 		
 		if(!IsEntityOnFloor(hitBox, lvlData)) {
 			inAir = true;
+		}
+	}
+	
+	private void resetAttackbox() {
+		if(flipW == 1) {
+			attackBox.x = hitBox.x + hitBox.width + (int) (Game.SCALE * 6);
+		}else {
+			attackBox.x = hitBox.x - hitBox.width - (int) (Game.SCALE * 5);
 		}
 	}
 

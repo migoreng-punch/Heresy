@@ -6,6 +6,7 @@ import static utils.HelpMethods.CanMoveHere;
 import static utils.HelpMethods.GetEntityYPosUnderRoofOrAboveFloor;
 import static utils.HelpMethods.IsEntityOnFloor;
 import static utils.HelpMethods.IsFloor;
+import static utils.Constants.EnemyConstants.GetSpriteAmount;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -75,6 +76,9 @@ public class Skelly extends Enemy{
 					}
 					break;
 				case HIT:
+					if(animIndex <= GetSpriteAmount(enemyType, state) - 2)
+						pushBack(pushBackDir, lvlData, 2f);
+					updatePushBackDrawOffset();
 					break;	
 			}
 		}

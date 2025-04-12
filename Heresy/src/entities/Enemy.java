@@ -118,8 +118,18 @@ public abstract class Enemy extends Entity {
 			newState(DEAD);
 		}else {
 			newState(HIT);
+			if(walkDir == LEFT) {
+				pushBackDir = RIGHT;
+			}else {
+				pushBackDir = LEFT;
+			}
+			pushBackOffsetDir = UP;
+			pushDrawOffset = 0;
 		}
 	}
+	
+	
+	
 	
 	protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
 		if(attackBox.intersects(player.hitBox)) {
@@ -161,12 +171,35 @@ public abstract class Enemy extends Entity {
 		newState(IDLE);
 		active = true;
 		airSpeed = 0;
+		
+		pushDrawOffset = 0;
 	}
 
+	
 
+	public int flipX() {
+		if (walkDir == RIGHT)
+			return width;
+		else
+			return 0;
+	}
+	
+	
+
+	public int flipW() {
+		if (walkDir == RIGHT)
+			return -1;
+		else
+			return 1;
+	}
 	
 	public boolean isActive() {
 		return active;
+	}
+	
+
+	public float getPushDrawOffset() {
+		return pushDrawOffset;
 	}
 
 }

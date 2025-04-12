@@ -52,9 +52,9 @@ public class Playing extends State implements StateMethods {
 	}
 	
 	public void loadNextLevel() {
-		resetAll();
 		levelManager.loadNextLevel();
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
+		resetAll();
 	}
 	
 	private void loadStartLevel() {
@@ -101,7 +101,6 @@ public class Playing extends State implements StateMethods {
 	}
 
 	private void checkCloseToBorder() {
-		// TODO Auto-generated method stub
 		int playerX = (int) player.getHitbox().x;
 		int diff = playerX - xLvlOffset;
 		
