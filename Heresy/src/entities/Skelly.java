@@ -26,7 +26,7 @@ public class Skelly extends Enemy{
 	
 	public Skelly(float x, float y) {
 		super(x, y, SKELLY_WIDTH, SKELLY_HEIGHT, SKELLY);
-		initHitbox(12 ,29 ); //Resize Hitbox
+		initHitbox(12 , 29); //Resize Hitbox
 		initAttackBox();
 	}
 	

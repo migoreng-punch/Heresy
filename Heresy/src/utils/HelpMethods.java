@@ -169,97 +169,97 @@ public class HelpMethods {
 			return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
 	}
 	
-	public static int[][] GetLevelData(BufferedImage img){
-		int[][] lvlData = new int[img.getHeight()][img.getWidth()];
-		
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getRed(); 
-				if(value >= 351) {
-					value = 0;
-				}
-				lvlData[i][j] = value;
-			}
-		}
-		return lvlData;
-	}
+//	public static int[][] GetLevelData(BufferedImage img){
+//		int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+//		
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getRed(); 
+//				if(value >= 351) {
+//					value = 0;
+//				}
+//				lvlData[i][j] = value;
+//			}
+//		}
+//		return lvlData;
+//	}
 	
-	public static ArrayList<Skelly> getSkellies(BufferedImage img){
-		ArrayList<Skelly> list = new ArrayList<>();
-		
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getGreen(); 
-				if(value == SKELLY) {
-					list.add(new Skelly(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
-					float pos1 = j * Game.TILES_SIZE;
-					float pos2 = i * Game.TILES_SIZE;
-					System.out.println("Position" + " " + pos1 + " " + pos2);
-				}
-			}		
-		}
-		return list;
-	}
-	
-	public static Point GetPlayerSpawn(BufferedImage img) {
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getGreen(); 
-				if(value == 100) {
-					return new Point(j * Game.TILES_SIZE, i * Game.TILES_SIZE);
-				}
-			}		
-		}
-		return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
-	}
-	
-	
-	public static ArrayList<Potion> GetPotions(BufferedImage img){
-		ArrayList<Potion> list = new ArrayList<>();
-		
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getBlue(); 
-				if(value == RED_POTION || value == BLUE_POTION) {
-					list.add(new Potion(j * Game.TILES_SIZE, i * Game.TILES_SIZE, value));
-				}
-			}		
-		}
-		return list;
-	}
-	
-	public static ArrayList<GameContainer> GetContainers(BufferedImage img){
-		ArrayList<GameContainer> list = new ArrayList<>();
-		
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getBlue(); 
-				if(value == JAR || value == BARREL) {
-					list.add(new GameContainer(j * Game.TILES_SIZE, i * Game.TILES_SIZE, value));
-				}
-			}		
-		}
-		return list;
-	}
-
-	public static ArrayList<Spike> GetSpikes(BufferedImage img) {
-		ArrayList<Spike> list = new ArrayList<>();
-		
-		for(int i = 0; i < img.getHeight(); i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				Color color = new Color(img.getRGB(j, i));
-				int value = color.getBlue(); 
-				if(value == SPIKE) {
-					list.add(new Spike(j * Game.TILES_SIZE, i * Game.TILES_SIZE, SPIKE));
-				}
-			}		
-		}
-		
-		return list;
-	}
+//	public static ArrayList<Skelly> getSkellies(BufferedImage img){
+//		ArrayList<Skelly> list = new ArrayList<>();
+//		
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getGreen(); 
+//				if(value == SKELLY) {
+//					list.add(new Skelly(j * Game.TILES_SIZE, i * Game.TILES_SIZE));
+//					float pos1 = j * Game.TILES_SIZE;
+//					float pos2 = i * Game.TILES_SIZE;
+//					System.out.println("Position" + " " + pos1 + " " + pos2);
+//				}
+//			}		
+//		}
+//		return list;
+//	}
+//	
+//	public static Point GetPlayerSpawn(BufferedImage img) {
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getGreen(); 
+//				if(value == 100) {
+//					return new Point(j * Game.TILES_SIZE, i * Game.TILES_SIZE);
+//				}
+//			}		
+//		}
+//		return new Point(1 * Game.TILES_SIZE, 1 * Game.TILES_SIZE);
+//	}
+//	
+//	
+//	public static ArrayList<Potion> GetPotions(BufferedImage img){
+//		ArrayList<Potion> list = new ArrayList<>();
+//		
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getBlue(); 
+//				if(value == RED_POTION || value == BLUE_POTION) {
+//					list.add(new Potion(j * Game.TILES_SIZE, i * Game.TILES_SIZE, value));
+//				}
+//			}		
+//		}
+//		return list;
+//	}
+//	
+//	public static ArrayList<GameContainer> GetContainers(BufferedImage img){
+//		ArrayList<GameContainer> list = new ArrayList<>();
+//		
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getBlue(); 
+//				if(value == JAR || value == BARREL) {
+//					list.add(new GameContainer(j * Game.TILES_SIZE, i * Game.TILES_SIZE, value));
+//				}
+//			}		
+//		}
+//		return list;
+//	}
+//
+//	public static ArrayList<Spike> GetSpikes(BufferedImage img) {
+//		ArrayList<Spike> list = new ArrayList<>();
+//		
+//		for(int i = 0; i < img.getHeight(); i++) {
+//			for(int j = 0; j < img.getWidth(); j++) {
+//				Color color = new Color(img.getRGB(j, i));
+//				int value = color.getBlue(); 
+//				if(value == SPIKE) {
+//					list.add(new Spike(j * Game.TILES_SIZE, i * Game.TILES_SIZE, SPIKE));
+//				}
+//			}		
+//		}
+//		
+//		return list;
+//	}
 }

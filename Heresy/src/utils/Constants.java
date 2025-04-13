@@ -68,6 +68,9 @@ public class Constants {
 		public static final int SLIME_HEIGHT_DEFAULT = 25;
 		public static final int SLIME_WIDTH = (int) (SLIME_WIDTH_DEFAULT * Game.SCALE);
 		public static final int SLIME_HEIGHT = (int) (SLIME_HEIGHT_DEFAULT * Game.SCALE);
+		public static final int SLIME_DRAWOFFSET_X = (int) (2 * Game.SCALE);
+		public static final int SLIME_DRAWOFFSET_Y = (int) (10 * Game.SCALE);
+
 		
 		
 		
@@ -113,6 +116,17 @@ public class Constants {
 //					case DEAD:
 //						return 13;
 				}
+			case SLIME:
+				switch(enemy_state) {
+					case IDLE:
+					case RUNNING:
+					case HIT:
+					case DEAD:
+						return 4;
+					case ATTACK_1:
+						return 5;
+				}
+		
 			}
 			return 0;
 		}

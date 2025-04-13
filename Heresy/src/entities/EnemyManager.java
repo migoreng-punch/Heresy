@@ -14,7 +14,8 @@ public class EnemyManager {
 	
 	private Playing playing;
 	private BufferedImage[][] skellyArr;
-	private ArrayList<Skelly> skellies = new ArrayList<>();
+//	private ArrayList<Skelly> skellies = new ArrayList<>();
+	private Level currentLevel;
 	
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
@@ -22,13 +23,14 @@ public class EnemyManager {
 	}
 	
 	public void loadEnemies(Level level) {
-		skellies = level.getSkelly();
-		System.out.println("size of skellies: " + skellies.size());
+		this.currentLevel = level;
+//		skellies = level.getSkelly();
+//		System.out.println("size of skellies: " + skellies.size());
 	}
 
 	public void update(int[][] lvlData) {
 		boolean isAnyActive = false;
-		for(Skelly s: skellies) {
+		for(Skelly s: currentLevel.getSkelly()) {
 			if(s.isActive()) {
 				s.update(lvlData, playing);
 				isAnyActive = true;
@@ -44,7 +46,7 @@ public class EnemyManager {
 	}
 
 	private void drawSkellies(Graphics g, int xLvlOffset) {
-		for(Skelly s: skellies)	 
+		for(Skelly s: currentLevel.getSkelly())	 
 			if(s.isActive()){
 			g.drawImage(skellyArr[s.getState()][s.getAniIndex()], 
 					(int) s.getHitbox().x - xLvlOffset - SKELLY_DRAWOFFSET_X + s.flipX() - 8, 
@@ -57,7 +59,7 @@ public class EnemyManager {
 	}
 	
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
-		for(Skelly s: skellies) 
+		for(Skelly s: currentLevel.getSkelly()) 
 			if(s.isActive()){
 				if(s.getCurrentHealth() > 0)
 					if(attackBox.intersects(s.getHitbox())) {
@@ -68,18 +70,27 @@ public class EnemyManager {
 	}
 
 	private void loadEnemyImgs() {
-		skellyArr = new BufferedImage[5][13];
-		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE);
-		
-		for(int i = 0; i < skellyArr.length; i++) {
-			for(int j = 0; j < skellyArr[i].length; j++) {
-				skellyArr[i][j] = temp.getSubimage(j * SKELLY_WIDTH_DEFAULT, i * SKELLY_HEIGHT_DEFAULT, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
-			}
-		}
+//		skellyArr = new BufferedImage[5][13];
+//		BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE);
+//		
+//		for(int i = 0; i < skellyArr.length; i++) {
+//			for(int j = 0; j < skellyArr[i].length; j++) {
+//				skellyArr[i][j] = temp.getSubimage(j * SKELLY_WIDTH_DEFAULT, i * SKELLY_HEIGHT_DEFAULT, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
+//			}
+//		}
+		skellyArr = getImgArr(LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE), 13, 5, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
+	}
+	
+	private BufferedImage[][] getImgArr(BufferedImage atlas, int xSize, int ySize, int spriteW, int spriteH) {
+		BufferedImage[][] tempArr = new BufferedImage[ySize][xSize];
+		for (int j = 0; j < tempArr.length; j++)
+			for (int i = 0; i < tempArr[j].length; i++)
+				tempArr[j][i] = atlas.getSubimage(i * spriteW, j * spriteH, spriteW, spriteH);
+		return tempArr;
 	}
 
 	public void resetAllEnemies() {
-		for(Skelly s : skellies) {
+		for(Skelly s : currentLevel.getSkelly()) {
 			s.resetEnemy();
 		}
 	}

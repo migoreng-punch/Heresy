@@ -29,7 +29,10 @@ public class LoadSave {
 	public static final String VOLUME_BUTTONS = "volume_buttons.png";
 	public static final String MENU_BACKGROUND_IMG = "background_Town1.png";
 	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
+	
 	public static final String SKELETON_SPRITE = "Skeleton_warrior.png";
+	public static final String SLIME_SPRITE = "slime_spritesheet.png";
+	
 	public static final String STATUS_BAR = "Player_healthbar.png";
 	public static final String COMPLETED_IMG = "menu_level_complete.png";
 	
