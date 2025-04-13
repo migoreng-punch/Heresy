@@ -12,6 +12,7 @@ import static utils.Constants.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Float;
 
+import gamestates.Playing;
 import main.Game;
 
 import static utils.HelpMethods.CanMoveHere;
@@ -27,6 +28,7 @@ public abstract class Enemy extends Entity {
 //	protected int currentHealth;
 	protected boolean active = true;
 	protected boolean attackChecked;
+	protected int attackBoxOffsetX;
 	
 	public Enemy(float x, float y, int width, int height, int enemyType) {
 		super(x, y, width, height);
@@ -42,6 +44,23 @@ public abstract class Enemy extends Entity {
 			
 		}
 		firstUpdate = false;	
+	}
+	
+
+	protected void updateAttackBoxFlip() {
+		if (walkDir == RIGHT)
+			attackBox.x = hitBox.x + hitBox.width;
+		else
+			attackBox.x = hitBox.x - attackBoxOffsetX;
+
+		attackBox.y = hitBox.y;
+	}
+	
+	protected void inAirChecks(int[][] lvlData, Playing playing) {
+		if (state != HIT && state != DEAD) {
+			updateInAir(lvlData);
+			playing.getObjectManager().checkSpikesTouched(this);
+		}
 	}
 	
 	protected void updateInAir(int[][] lvlData) {
@@ -128,7 +147,10 @@ public abstract class Enemy extends Entity {
 		}
 	}
 	
-	
+	protected void initAttackBox(int w, int h, int attackBoxOffsetX) {
+		attackBox = new Rectangle2D.Float(x, y, (int) (w * Game.SCALE), (int) (h * Game.SCALE));
+		this.attackBoxOffsetX = (int) (Game.SCALE * attackBoxOffsetX);
+	}
 	
 	
 	protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {

@@ -5,10 +5,12 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import entities.Enemy;
 import entities.Player;
 import gamestates.Playing;
 import levels.Level;
 import utils.LoadSave;
+import objects.GameObject;
 import static utils.Constants.ObjectConstants.*;
 
 public class ObjectManager {
@@ -19,22 +21,27 @@ public class ObjectManager {
 	private ArrayList<Potion> potions;
 	private ArrayList<GameContainer> containers;
 	private ArrayList<Spike> spikes;
+	
+	private Level currentLevel;
 
 	
 	public ObjectManager(Playing playing) {
 		this.playing = playing;
+		currentLevel = playing.getLevelManager().getCurrentLevel();
 		loadImgs();
 	}
 	
 	public void checkSpikesTouched(Player p) {
-		for(Spike s : spikes) {
-			if(s.getHitBox().intersects(p.getHitbox())) {
+		for (Spike s : currentLevel.getSpike())
+			if (s.getHitBox().intersects(p.getHitbox()))
 				p.kill();
-			}
-		}
 	}
 	
-	
+	public void checkSpikesTouched(Enemy e) {
+		for (Spike s : currentLevel.getSpike())
+			if (s.getHitBox().intersects(e.getHitbox()))
+				e.hurt(200);
+	}
 	
 	public void checkObjectTouched(Rectangle2D.Float hitbox) {
 		for(Potion p : potions) {
@@ -129,6 +136,7 @@ public class ObjectManager {
 					(int) (s.getHitBox().x - xLvlOffset), 
 					(int) (s.getHitBox().y - s.getyDrawOffset()), 
 					SPIKE_WIDTH, SPIKE_HEIGHT, null);
+			s.drawHitbox(g, xLvlOffset);
 		}
 	}
 

@@ -26,11 +26,11 @@ public class EnemyManager {
 		System.out.println("size of skellies: " + skellies.size());
 	}
 
-	public void update(int[][] lvlData, Player player) {
+	public void update(int[][] lvlData) {
 		boolean isAnyActive = false;
 		for(Skelly s: skellies) {
 			if(s.isActive()) {
-				s.update(lvlData, player);
+				s.update(lvlData, playing);
 				isAnyActive = true;
 			}
 		}

@@ -95,7 +95,7 @@ public class Playing extends State implements StateMethods {
 			levelManager.update();
 			objectManager.update();
 			player.update();
-			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
+			enemyManager.update(levelManager.getCurrentLevel().getLevelData());
 			checkCloseToBorder();
 		}
 	}
@@ -350,4 +350,5 @@ public class Playing extends State implements StateMethods {
 	public void setPlayerDying(boolean playerDying) {
 		this.playerDying = playerDying;
 	}
+	
 }

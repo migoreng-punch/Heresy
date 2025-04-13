@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
+import gamestates.Playing;
+
 import static utils.Constants.Directions.*;
 
 
@@ -33,8 +35,8 @@ public class Skelly extends Enemy{
 		attackBoxOffsetX = (int)(Game.SCALE * 5);
 	}
 
-	public void update(int[][] lvlData, Player player) {
-		updateBehavior(lvlData, player);
+	public void update(int[][] lvlData, Playing playing) {
+		updateBehavior(lvlData, playing);
 		updateAnimationTick();
 		updateAttackBox();
 	}
@@ -48,22 +50,25 @@ public class Skelly extends Enemy{
 		attackBox.y = hitBox.y;
 	}
 
-	public void updateBehavior(int[][] lvlData, Player player) {
+	public void updateBehavior(int[][] lvlData, Playing playing) {
 		if(firstUpdate) {
 			firstUpdateCheck(lvlData);
 		}
 		if(inAir) {
-			updateInAir(lvlData);
+			inAirChecks(lvlData, playing);
 		}else {
 			switch(state) {
 				case IDLE:
-					newState(RUNNING);
+					if (IsFloor(hitBox, lvlData))
+						newState(RUNNING);
+					else
+						inAir = true;
 					break;
 				case RUNNING:
-					if(canSeePlayer(lvlData, player)) {
-						turnTowardsPlayer(player);
-					if(isPlayerCloseForAttack(player)) 
-						newState(ATTACK_1);
+					if (canSeePlayer(lvlData, playing.getPlayer())) {
+						turnTowardsPlayer(playing.getPlayer());
+						if (isPlayerCloseForAttack(playing.getPlayer()))
+							newState(ATTACK_1);
 					}
 					move(lvlData);
 					break;
@@ -72,7 +77,7 @@ public class Skelly extends Enemy{
 						attackChecked = false;
 					}
 					if(animIndex == 7 && !attackChecked) {
-						checkEnemyHit(attackBox, player);
+						checkEnemyHit(attackBox, playing.getPlayer());
 					}
 					break;
 				case HIT:
