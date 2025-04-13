@@ -32,13 +32,13 @@ public class ObjectManager {
 	}
 	
 	public void checkSpikesTouched(Player p) {
-		for (Spike s : currentLevel.getSpike())
+		for (Spike s : spikes)
 			if (s.getHitBox().intersects(p.getHitbox()))
 				p.kill();
 	}
 	
 	public void checkSpikesTouched(Enemy e) {
-		for (Spike s : currentLevel.getSpike())
+		for (Spike s : spikes)
 			if (s.getHitBox().intersects(e.getHitbox()))
 				e.hurt(200);
 	}

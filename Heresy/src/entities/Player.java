@@ -60,7 +60,7 @@ public class Player extends Entity {
 	private int powerBarXStart = (int) (123 * Game.SCALE);
 	private int powerBarYStart = (int) (45 * Game.SCALE);
 	private int powerWidth = powerBarWidth;
-	private int powerMaxValue = 200;
+	private int powerMaxValue = 100;
 	private int powerValue = powerMaxValue;
 	
 //	private int maxHealth = 100;
@@ -76,7 +76,7 @@ public class Player extends Entity {
 	
 	private boolean powerAttackActive;
 	private int powerAttackTick;
-	private int powerGrowSpeed;
+	private int powerGrowSpeed = 15;
 	private int powerGrowTick;
 	
 	public Player(float x, float y, int width, int height, Playing playing) {
@@ -106,6 +106,7 @@ public class Player extends Entity {
 	public void update() {
 		updateHealthBar();
 		updatePowerBar();
+		
 		if(currentHealth <= 0) {
 			if(state != DIE) {
 				state = DIE;
@@ -113,6 +114,11 @@ public class Player extends Entity {
 				animIndex = 0;
 				playing.setPlayerDying(true);
 				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+				
+				if (!IsEntityOnFloor(hitBox, lvlData)) {
+					inAir = true;
+					airSpeed = 0;
+				}
 			}else if(animIndex == GetSpriteAmount(DIE) - 1 && animTick >= ANI_SPEED - 1 ) {
 				playing.setGameOver(true);
 				playing.getGame().getAudioPlayer().stopSong();
@@ -125,7 +131,14 @@ public class Player extends Entity {
 			return;
 		}
 		updateAttackBox();
-		updatePosition();
+		
+		
+		if (state == HURT) {
+			if (animIndex <= GetSpriteAmount(state) - 3)
+				pushBack(pushBackDir, lvlData, 1.25f);
+			updatePushBackDrawOffset();
+		} else
+			updatePosition();
 		
 		if(moving) {
 			checkPotionTouched();
@@ -198,7 +211,7 @@ public class Player extends Entity {
 	public void render(Graphics g, int lvlOffset) {		
 		g.drawImage(animations[state][animIndex],
 				(int) (hitBox.x - xDrawOffset) - lvlOffset + flipX,
-				(int) (hitBox.y - yDrawOffset),
+				(int) (hitBox.y - yDrawOffset + (int) (pushDrawOffset)),
 				width * flipW, height, null);
 		drawHitbox(g, lvlOffset);
 		drawAttackBox(g, lvlOffset);
@@ -233,6 +246,12 @@ public class Player extends Entity {
 				animIndex = 0; 
 				attacking = false;
 				attackChecked = false;
+				if (state == HURT) {
+					newState(IDLE);
+					airSpeed = 0f;
+					if (!IsFloor(hitBox, 0, lvlData))
+						inAir = true;
+				}
 			}
 		}
 	}
@@ -383,15 +402,44 @@ public class Player extends Entity {
 		}
 	}
 	
+//	public void changeHealth(int value) {
+//		currentHealth += value;
+//		if(currentHealth <= 0) {
+//			currentHealth = 0;
+//			//gameOver();
+//		}else if(currentHealth > maxHealth) {
+//			currentHealth = maxHealth;
+//		}
+//	}
+	
 	public void changeHealth(int value) {
-		currentHealth += value;
-		if(currentHealth <= 0) {
-			currentHealth = 0;
-			//gameOver();
-		}else if(currentHealth > maxHealth) {
-			currentHealth = maxHealth;
+		if (value < 0) {
+			if (state == HURT)
+				return;
+			else
+				newState(HURT);
 		}
+
+		currentHealth += value;
+		currentHealth = Math.max(Math.min(currentHealth, maxHealth), 0);
 	}
+	
+	
+	public void changeHealth(int value, Enemy e) {
+		if (state == HURT)
+			return;
+		changeHealth(value);
+		pushBackOffsetDir = UP;
+		pushDrawOffset = 0;
+
+		if (e.getHitbox().x < hitBox.x)
+			pushBackDir = RIGHT;
+		else
+			pushBackDir = LEFT;
+	}
+	
+	
+	
 	
 	public void kill() {
 		currentHealth = 0;
