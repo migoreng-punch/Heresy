@@ -2,9 +2,6 @@ package entities;
 
 import static utils.Constants.Directions.LEFT;
 import static utils.Constants.EnemyConstants.*;
-import static utils.HelpMethods.CanMoveHere;
-import static utils.HelpMethods.GetEntityYPosUnderRoofOrAboveFloor;
-import static utils.HelpMethods.IsEntityOnFloor;
 import static utils.HelpMethods.IsFloor;
 import static utils.Constants.EnemyConstants.GetSpriteAmount;
 

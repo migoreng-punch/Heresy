@@ -79,6 +79,7 @@ public class Level {
 	private void loadEntities(int greenValue, int x, int y) {
 		switch (greenValue) {
 		case SKELLY -> skellies.add(new Skelly(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
+		case SLIME -> slimes.add(new Slime(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case 100 -> playerSpawn = new Point(x * Game.TILES_SIZE, y * Game.TILES_SIZE);
 		}
 	}

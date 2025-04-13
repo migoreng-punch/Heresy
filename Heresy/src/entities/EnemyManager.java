@@ -13,8 +13,8 @@ import static utils.Constants.EnemyConstants.*;
 public class EnemyManager {
 	
 	private Playing playing;
-	private BufferedImage[][] skellyArr;
-//	private ArrayList<Skelly> skellies = new ArrayList<>();
+	private BufferedImage[][] skellyArr, slimesArr;
+	private ArrayList<Skelly> skellies = new ArrayList<>();
 	private Level currentLevel;
 	
 	public EnemyManager(Playing playing) {
@@ -25,7 +25,7 @@ public class EnemyManager {
 	public void loadEnemies(Level level) {
 		this.currentLevel = level;
 //		skellies = level.getSkelly();
-//		System.out.println("size of skellies: " + skellies.size());
+		System.out.println("size of skellies: " + skellies.size());
 	}
 
 	public void update(int[][] lvlData) {
@@ -36,6 +36,14 @@ public class EnemyManager {
 				isAnyActive = true;
 			}
 		}
+		
+		for(Slime s: currentLevel.getSlimes()) {
+			if(s.isActive()) {
+				s.update(lvlData, playing);
+				isAnyActive = true;
+			}
+		}
+
 		if(!isAnyActive) {
 			playing.setLevelCompleted(true);
 		}
@@ -43,6 +51,7 @@ public class EnemyManager {
 	
 	public void draw(Graphics g, int xLvlOffset) {
 		drawSkellies(g, xLvlOffset);
+		drawSlimes(g, xLvlOffset);
 	}
 
 	private void drawSkellies(Graphics g, int xLvlOffset) {
@@ -58,6 +67,19 @@ public class EnemyManager {
 		}
 	}
 	
+	private void drawSlimes(Graphics g, int xLvlOffset) {
+		for(Slime s: currentLevel.getSlimes())	 
+			if(s.isActive()){
+			g.drawImage(slimesArr[s.getState()][s.getAniIndex()], 
+					(int) s.getHitbox().x - xLvlOffset - SLIME_DRAWOFFSET_X + s.flipX() - 8, 
+					(int) s.getHitbox().y - SLIME_DRAWOFFSET_Y, 
+					SLIME_WIDTH * s.flipW(), 
+					SLIME_HEIGHT, null);
+			s.drawHitbox(g, xLvlOffset);
+			s.drawAttackBox(g, xLvlOffset);
+		}
+	}
+	
 	public void checkEnemyHit(Rectangle2D.Float attackBox) {
 		for(Skelly s: currentLevel.getSkelly()) 
 			if(s.isActive()){
@@ -67,6 +89,17 @@ public class EnemyManager {
 						return;
 					}
 			}
+		
+		for(Slime s : currentLevel.getSlimes()) {
+			if(s.isActive()) {
+				if(s.getCurrentHealth() > 0) {
+					if(attackBox.intersects(s.getHitbox())) {
+						s.hurt(15);
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	private void loadEnemyImgs() {
@@ -79,6 +112,7 @@ public class EnemyManager {
 //			}
 //		}
 		skellyArr = getImgArr(LoadSave.GetSpriteAtlas(LoadSave.SKELETON_SPRITE), 13, 5, SKELLY_WIDTH_DEFAULT, SKELLY_HEIGHT_DEFAULT);
+		slimesArr = getImgArr(LoadSave.GetSpriteAtlas(LoadSave.SLIME_SPRITE), 5, 5, SLIME_WIDTH_DEFAULT, SLIME_HEIGHT_DEFAULT);
 	}
 	
 	private BufferedImage[][] getImgArr(BufferedImage atlas, int xSize, int ySize, int spriteW, int spriteH) {
@@ -91,6 +125,10 @@ public class EnemyManager {
 
 	public void resetAllEnemies() {
 		for(Skelly s : currentLevel.getSkelly()) {
+			s.resetEnemy();
+		}
+		
+		for(Slime s : currentLevel.getSlimes()) {
 			s.resetEnemy();
 		}
 	}

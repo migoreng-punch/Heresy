@@ -19,7 +19,7 @@ import main.Game;
 public class LoadSave {
 	
 	public static final String PLAYER_ATLAS = "adventurer_sprites_v1.png";
-	public static final String LEVEL_ATLAS = "game_tilesheets_heresy.png";
+	public static final String LEVEL_ATLAS = "heresy_tilesheet.png";
 //	public static final String LEVEL_TEMP_DATA = "level_temp_v1.png";
 	public static final String MENU_BUTTONS = "menu_buttons_heresy.png";
 	public static final String MENU_BACKGROUND = "menu_backdrop_heresy.png";
@@ -95,13 +95,6 @@ public class LoadSave {
 		
 		return imgs;
 	}
-	
-
-	
-
-	
-	
-	
 	
 //	public static int[][] GetLevelData(){
 //		BufferedImage img = GetSpriteAtlas(LEVEL_TEMP_DATA);
