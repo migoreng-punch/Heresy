@@ -5,8 +5,7 @@ import static utils.Constants.EnemyConstants.*;
 import static utils.HelpMethods.IsFloor;
 import static utils.Constants.EnemyConstants.GetSpriteAmount;
 
-import java.awt.Color;
-import java.awt.Graphics;
+
 import java.awt.geom.Rectangle2D;
 
 import gamestates.Playing;

@@ -60,7 +60,7 @@ public class Player extends Entity {
 	private int powerBarXStart = (int) (123 * Game.SCALE);
 	private int powerBarYStart = (int) (45 * Game.SCALE);
 	private int powerWidth = powerBarWidth;
-	private int powerMaxValue = 100;
+	private int powerMaxValue = 200;
 	private int powerValue = powerMaxValue;
 	
 //	private int maxHealth = 100;
@@ -211,7 +211,7 @@ public class Player extends Entity {
 	public void render(Graphics g, int lvlOffset) {		
 		g.drawImage(animations[state][animIndex],
 				(int) (hitBox.x - xDrawOffset) - lvlOffset + flipX,
-				(int) (hitBox.y - yDrawOffset + (int) (pushDrawOffset)),
+				(int) (hitBox.y - yDrawOffset),
 				width * flipW, height, null);
 		drawHitbox(g, lvlOffset);
 		drawAttackBox(g, lvlOffset);

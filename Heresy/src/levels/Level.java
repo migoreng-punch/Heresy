@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import entities.Skelly;
 import entities.Slime;
+import entities.Wolf;
 import main.Game;
 import objects.GameContainer;
 import objects.Potion;
@@ -26,6 +27,7 @@ public class Level {
 	private BufferedImage img;
 	private int[][] lvlData;
 	private ArrayList<Skelly> skellies = new ArrayList<>();
+	private ArrayList<Wolf> wolfies = new ArrayList<>();
 	private ArrayList<Slime> slimes = new ArrayList<>();
 	private ArrayList<Potion> potions = new ArrayList<>();
 	private ArrayList<Spike> spikes = new ArrayList<>();
@@ -69,7 +71,7 @@ public class Level {
 	}
 	
 	private void loadLevelData(int redValue, int x, int y) {
-		if (redValue >= 255)
+		if (redValue >= 247)
 			lvlData[y][x] = 0;
 		else
 			lvlData[y][x] = redValue;
@@ -80,6 +82,7 @@ public class Level {
 		switch (greenValue) {
 		case SKELLY -> skellies.add(new Skelly(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case SLIME -> slimes.add(new Slime(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
+		case WOLF -> wolfies.add(new Wolf(x * Game.TILES_SIZE, y * Game.TILES_SIZE));
 		case 100 -> playerSpawn = new Point(x * Game.TILES_SIZE, y * Game.TILES_SIZE);
 		}
 	}
@@ -137,6 +140,10 @@ public class Level {
 	
 	public ArrayList<Skelly> getSkelly(){
 		return skellies;
+	}
+	
+	public ArrayList<Wolf> getWolfies(){
+		return wolfies;
 	}
 	
 	public ArrayList<Slime> getSlimes(){

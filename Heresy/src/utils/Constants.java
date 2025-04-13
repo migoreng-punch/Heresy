@@ -46,6 +46,7 @@ public class Constants {
 	public static class EnemyConstants{
 		public static final int SKELLY = 0;
 		public static final int SLIME = 1;
+		public static final int WOLF = 2;
 		
 		
 		
@@ -66,11 +67,22 @@ public class Constants {
 		
 		public static final int SLIME_WIDTH_DEFAULT = 32;
 		public static final int SLIME_HEIGHT_DEFAULT = 25;
+		
 		public static final int SLIME_WIDTH = (int) (SLIME_WIDTH_DEFAULT * Game.SCALE);
 		public static final int SLIME_HEIGHT = (int) (SLIME_HEIGHT_DEFAULT * Game.SCALE);
+		
 		public static final int SLIME_DRAWOFFSET_X = (int) (2 * Game.SCALE);
 		public static final int SLIME_DRAWOFFSET_Y = (int) (10 * Game.SCALE);
-
+		
+		public static final int WOLF_WIDTH_DEFAULT = 48;
+		public static final int WOLF_HEIGHT_DEFAULT = 32;
+		
+		public static final int WOLF_WIDTH = (int) (WOLF_WIDTH_DEFAULT * Game.SCALE);
+		public static final int WOLF_HEIGHT = (int) (WOLF_HEIGHT_DEFAULT * Game.SCALE);
+		
+		public static final int WOLF_DRAWOFFSET_X = (int) (4 * Game.SCALE);
+		public static final int WOLF_DRAWOFFSET_Y = (int) (9 * Game.SCALE);
+	
 		
 		
 		
@@ -126,6 +138,18 @@ public class Constants {
 					case ATTACK_1:
 						return 5;
 				}
+			case WOLF:
+				switch(enemy_state) {
+					case IDLE:
+					case HIT:
+						return 4;
+					case RUNNING:
+						return 6;
+					case DEAD:
+						return 8;
+					case ATTACK_1:
+						return 7;
+				}
 		
 			}
 			return 0;
@@ -135,6 +159,10 @@ public class Constants {
 			switch(enemy_Type) {
 			case SKELLY:
 				return 50;
+			case SLIME:
+				return 35;
+			case WOLF:
+				return 40;
 			default:
 				return 1;
 			}
@@ -144,6 +172,10 @@ public class Constants {
 			switch(enemy_Type) {
 			case SKELLY:
 				return 15;
+			case SLIME:
+				return 10;
+			case WOLF:
+				return 13;
 			default:
 				return 0;
 			}

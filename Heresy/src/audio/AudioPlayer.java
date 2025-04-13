@@ -1,5 +1,6 @@
 package audio;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -11,6 +12,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import utils.LoadSave;
 
 public class AudioPlayer {
 	
@@ -32,6 +35,7 @@ public class AudioPlayer {
 	private float volume = 0.75f;
 	private boolean songMute, effectMute;
 	private Random rand = new Random();
+	private BufferedImage backgroundImg;
 	
 	
 	public AudioPlayer() {

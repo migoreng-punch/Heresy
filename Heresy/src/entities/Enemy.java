@@ -33,6 +33,7 @@ public abstract class Enemy extends Entity {
 	public Enemy(float x, float y, int width, int height, int enemyType) {
 		super(x, y, width, height);
 		this.enemyType = enemyType;
+		
 		maxHealth = GetMaxHealth(enemyType);
 		currentHealth = maxHealth;
 		walkSpeed = Game.SCALE * 0.7f;
@@ -117,7 +118,7 @@ public abstract class Enemy extends Entity {
 	
 	protected boolean isPlayerInRange(Player player) {
 		int absValue =  (int) Math.abs(player.hitBox.x - hitBox.x);
-		return absValue <= attackDistance * 5;
+		return absValue <= attackDistance * 4;
 	}
 	
 	protected boolean isPlayerCloseForAttack(Player player) {

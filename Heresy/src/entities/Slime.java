@@ -27,8 +27,8 @@ public class Slime extends Enemy{
 	
 	
 	private void initAttackBox() {
-		attackBox = new Rectangle2D.Float(x, y,(int) (30 * Game.SCALE), (int) (14 * Game.SCALE));
-		attackBoxOffsetX = (int)(Game.SCALE * 5);
+		attackBox = new Rectangle2D.Float(x, y,(int) (40 * Game.SCALE), (int) (14 * Game.SCALE));
+		attackBoxOffsetX = (int)(Game.SCALE * 6);
 	
 	}
 	
@@ -87,19 +87,19 @@ public class Slime extends Enemy{
 	
 	public int flipX() {
 		if(walkDir == RIGHT) {
-			return 0;
+			return width;
 		}
 		else {
-			return width;
+			return 0;
 		}
 	}
 	
 	public int flipW() {
 		 if(walkDir == RIGHT) {
-			 return 1;
+			 return -1;
 		 }
 		 	else {
-			 return -1;
+			 return 1;
 		 }
 	}
 }

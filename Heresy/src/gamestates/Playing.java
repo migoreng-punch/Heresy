@@ -34,7 +34,7 @@ public class Playing extends State implements StateMethods {
 	private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
 	private int maxLvlOffsetX;
 	
-	private BufferedImage backgroundImg;
+	private BufferedImage backgroundImg, backgroundImg_2;
 	private boolean gameOver;
 	private boolean lvlCompleted;
 	private long startTime = System.currentTimeMillis();
@@ -45,6 +45,7 @@ public class Playing extends State implements StateMethods {
 	public Playing(Game game) {
 		super(game);
 		initClasses();
+		
 		
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
 		calcLvlOffset();
