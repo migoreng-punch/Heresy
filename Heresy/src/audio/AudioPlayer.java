@@ -19,8 +19,9 @@ public class AudioPlayer {
 	
 	public static int MENU_1 = 0;
 	public static int CHAPTER_1 = 1;
-	public static int CHAPTER_2;
-	public static int CHAPTER_3;
+	public static int CHAPTER_2 = 2;
+	public static int CHAPTER_3 = 3;
+	public static int BOSS = 4;
 	
 	public static int DIE = 0;
 	public static int JUMP = 1;
@@ -34,9 +35,7 @@ public class AudioPlayer {
 	private int currentSongId;
 	private float volume = 0.75f;
 	private boolean songMute, effectMute;
-	private Random rand = new Random();
-	private BufferedImage backgroundImg;
-	
+	private Random rand = new Random();	
 	
 	public AudioPlayer() {
 		loadSongs();
@@ -45,7 +44,7 @@ public class AudioPlayer {
 	}
 	
 	private void loadSongs() {
-		String[] names = {"at - in a room", "level1"};
+		String[] names = {"at - in a room", "level1", "cave_music", "castle_music", "boss_music"};
 		songs = new Clip[names.length];
 		
 		for(int i = 0; i < songs.length; i++) {
@@ -94,9 +93,28 @@ public class AudioPlayer {
 	}
 	
 	public void setChapterSong(int lvlIndex) {
-		if(lvlIndex == 0 || lvlIndex == 1 || lvlIndex == 2) {
-			playSong(CHAPTER_1);
+		switch(lvlIndex) {
+			case 0:
+			case 1:
+			case 2:
+				playSong(CHAPTER_1);
+				break;
+			case 3:
+			case 4:
+			case 5:
+				playSong(CHAPTER_2);
+				break;
+			case 6:
+			case 7:
+			case 8:
+				playSong(CHAPTER_3);
+				break;
+			default:
+				playSong(BOSS);
+				break;
 		}
+		
+		
 		
 		
 		System.out.println(lvlIndex);

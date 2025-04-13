@@ -34,7 +34,7 @@ public class Playing extends State implements StateMethods {
 	private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
 	private int maxLvlOffsetX;
 	
-	private BufferedImage backgroundImg, backgroundImg_2;
+	private BufferedImage backgroundImg;
 	private boolean gameOver;
 	private boolean lvlCompleted;
 	private long startTime = System.currentTimeMillis();
@@ -45,22 +45,38 @@ public class Playing extends State implements StateMethods {
 	public Playing(Game game) {
 		super(game);
 		initClasses();
-		
-		
-		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
+
 		calcLvlOffset();
 		loadStartLevel();
 	}
 	
+
+	
 	public void loadNextLevel() {
 		levelManager.loadNextLevel();
+		int lvlIndex = levelManager.getLevelIndex();
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
+			switch (lvlIndex) {
+		    case 0:
+		    case 1:
+		    case 2:
+		        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
+		        break;
+		    case 3:
+		    case 4:
+		    case 5:
+		        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.CAVES_BACKGROUND_IMG);
+		        break;
+		    default:
+		    	break;
+			}
 		resetAll();
 	}
 	
 	private void loadStartLevel() {
 		enemyManager.loadEnemies(levelManager.getCurrentLevel());
 		objectManager.loadObjects(levelManager.getCurrentLevel());
+		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OAKWOOD_BACKGROUND_IMG);
 	}
 
 	private void calcLvlOffset() {
