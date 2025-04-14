@@ -67,6 +67,10 @@ public class Playing extends State implements StateMethods {
 		    case 5:
 		        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.CAVES_BACKGROUND_IMG);
 		        break;
+		    case 6:
+		    case 7:
+		    case 8:
+		    	backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.CASTLE_BACKGROUND_IMG);
 		    default:
 		    	break;
 			}

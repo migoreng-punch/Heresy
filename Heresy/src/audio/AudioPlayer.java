@@ -109,8 +109,10 @@ public class AudioPlayer {
 			case 8:
 				playSong(CHAPTER_3);
 				break;
-			default:
+			case 9:
 				playSong(BOSS);
+				break;
+			default:
 				break;
 		}
 		

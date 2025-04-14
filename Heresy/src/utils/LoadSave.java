@@ -32,6 +32,7 @@ public class LoadSave {
 	
 	public static final String OAKWOOD_BACKGROUND_IMG = "oakwood_background.png";
 	public static final String CAVES_BACKGROUND_IMG = "caves_background.png";
+	public static final String CASTLE_BACKGROUND_IMG = "castle_background.png";
 	
 	public static final String SKELETON_SPRITE = "Skeleton_warrior.png";
 	public static final String SLIME_SPRITE = "slime_spritesheet.png";
