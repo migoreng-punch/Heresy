@@ -37,4 +37,6 @@ public class Potion extends GameObject {
 		
 	}
 	
+	
+	
 }

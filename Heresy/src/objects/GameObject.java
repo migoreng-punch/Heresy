@@ -97,5 +97,6 @@ public class GameObject {
 	public int getAniIndex() {
 		return animIndex;
 	}
+	
 
 }

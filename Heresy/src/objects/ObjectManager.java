@@ -1,5 +1,6 @@
 package objects;
 
+import utils.BattleLog;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -62,7 +63,8 @@ public class ObjectManager {
 				if(hitbox.intersects(p.getHitBox())) {
 					p.setActive(false);
 					applyEffectToPlayer(p);
-					
+					String potionName = (p.getObjType() == 0) ? "mana" : "heal";
+					BattleLog.log("Player picked up a " + potionName + " potion.");				
 				}
 			}
 		}

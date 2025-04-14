@@ -1,5 +1,6 @@
-	package entities;
+package entities;
 
+import utils.BattleLog;
 import static utils.Constants.Directions.DOWN;
 import static utils.Constants.Directions.LEFT;
 import static utils.Constants.Directions.RIGHT;
@@ -110,6 +111,7 @@ public class Player extends Entity {
 		if(currentHealth <= 0) {
 			if(state != DIE) {
 				state = DIE;
+		        BattleLog.log("Player died.");
 				animTick = 0;
 				animIndex = 0;
 				playing.setPlayerDying(true);
@@ -423,6 +425,7 @@ public class Player extends Entity {
 				return;
 			else
 				newState(HURT);
+	        BattleLog.log("Player took " + (-value) + " damage.");
 		}
 
 		currentHealth += value;
@@ -563,6 +566,7 @@ public class Player extends Entity {
 		if(powerValue >= 60) {
 			powerAttackActive = true;
 			changePower(-60);
+	        BattleLog.log("Player performed a power attack.");
 		}
 	}
 }
