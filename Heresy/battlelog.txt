@@ -6,7 +6,6 @@
 [2025-04-15T03:57:04.155843200] Player took 15 damage.
 [2025-04-15T03:57:08.573062500] Player took 10 damage.
 [2025-04-15T03:57:08.889834600] Player performed a power attack.
-[2025-04-15T03:57:10.131543] Player picked up a 0 potion.
 [2025-04-15T03:59:16.279513900] Player performed a power attack.
 [2025-04-15T03:59:18.610491500] Player performed a power attack.
 [2025-04-15T03:59:22.443305300] Player performed a power attack.
@@ -17,3 +16,12 @@
 [2025-04-15T03:59:38.979979200] Player performed a power attack.
 [2025-04-15T03:59:42.058601500] Player performed a power attack.
 [2025-04-15T03:59:44.441978100] Player picked up a mana potion.
+[2025-04-15T04:03:19.376178900] Player performed a power attack.
+[2025-04-15T04:03:20.579873500] Player performed a power attack.
+[2025-04-15T04:03:24.333621] Player performed a power attack.
+[2025-04-15T04:03:26.621827800] Player took 10 damage.
+[2025-04-15T04:03:29.779884600] Player performed a power attack.
+[2025-04-15T04:03:29.805198700] Player took 13 damage.
+[2025-04-15T04:03:34.846539100] Player took 15 damage.
+[2025-04-15T04:03:44.647747100] Player performed a power attack.
+[2025-04-15T04:03:48.772307100] Player picked up a mana potion.

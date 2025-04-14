@@ -63,7 +63,7 @@ public class ObjectManager {
 				if(hitbox.intersects(p.getHitBox())) {
 					p.setActive(false);
 					applyEffectToPlayer(p);
-					String potionName = (p.getObjType() == 0) ? "mana" : "heal";
+					String potionName = (p.getObjType() == 0) ? "heal" : "mana";
 					BattleLog.log("Player picked up a " + potionName + " potion.");				
 				}
 			}
