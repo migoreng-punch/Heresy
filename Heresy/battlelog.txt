@@ -25,3 +25,7 @@
 [2025-04-15T04:03:34.846539100] Player took 15 damage.
 [2025-04-15T04:03:44.647747100] Player performed a power attack.
 [2025-04-15T04:03:48.772307100] Player picked up a mana potion.
+[2025-04-15T04:16:12.907630200] Player performed a power attack.
+[2025-04-15T04:16:13.652608600] Player performed a power attack.
+[2025-04-15T04:16:14.359494700] Player performed a power attack.
+[2025-04-15T04:49:17.801721500] Player performed a power attack.
