@@ -159,7 +159,7 @@ public class Constants {
 		public static final int DEMON_SLIME_HEIGHT = (int) (DEMON_SLIME_HEIGHT_DEFAULT * Game.SCALE);
 		
 		public static final int DEMON_SLIME_DRAWOFFSET_X = (int) (119 * Game.SCALE); //119 prev
-		public static final int DEMON_SLIME_DRAWOFFSET_Y = (int) (0 * Game.SCALE); //70 prev
+		public static final int DEMON_SLIME_DRAWOFFSET_Y = (int) (75 * Game.SCALE); //70 prev
 		
 		public static final int FROST_GUARDIAN_WIDTH_DEFAULT = 192;
 		public static final int FROST_GUARDIAN_HEIGHT_DEFAULT = 128;
@@ -168,7 +168,7 @@ public class Constants {
 		public static final int FROST_GUARDIAN_HEIGHT = (int) (FROST_GUARDIAN_HEIGHT_DEFAULT * Game.SCALE);
 		
 		public static final int FROST_GUARDIAN_DRAWOFFSET_X = (int) (56 * Game.SCALE);
-		public static final int FROST_GUARDIAN_DRAWOFFSET_Y = (int) (18 * Game.SCALE); 
+		public static final int FROST_GUARDIAN_DRAWOFFSET_Y = (int) (25 * Game.SCALE); 
 		
 		// 61 x 89;
 		

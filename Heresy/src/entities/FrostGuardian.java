@@ -22,13 +22,13 @@ public class FrostGuardian extends Enemy{
 	private int attackBoxOffsetX;
 	
 	public FrostGuardian(float x, float y) {
-		super(x, y, FROST_GUARDIAN_WIDTH, FROST_GUARDIAN_HEIGHT, FROST_GUARDIAN);
-		initHitbox(79, 92); //61 , 89 prev
+		super(x, y - 80, FROST_GUARDIAN_WIDTH, FROST_GUARDIAN_HEIGHT, FROST_GUARDIAN);
+		initHitbox(79, 85); //61 , 89 prev
 		initAttackBox();
 	}
 	
 	private void initAttackBox() {
-		attackBox = new Rectangle2D.Float(x, y,(int) (85 * Game.SCALE), (int) (92 * Game.SCALE));
+		attackBox = new Rectangle2D.Float(x, y,(int) (79 * Game.SCALE), (int) (85 * Game.SCALE));
 		attackBoxOffsetX = (int)(Game.SCALE * 5);
 	}
 	

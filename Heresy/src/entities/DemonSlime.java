@@ -22,13 +22,13 @@ public class DemonSlime extends Enemy{
 	private int attackBoxOffsetX;
 
 	public DemonSlime(float x, float y) {
-		super(x, y, DEMON_SLIME_WIDTH, DEMON_SLIME_HEIGHT, DEMON_SLIME);
-		initHitbox(61, 89); //61 , 89 prev
+		super(x, y - 80, DEMON_SLIME_WIDTH, DEMON_SLIME_HEIGHT, DEMON_SLIME);
+		initHitbox(61, 85); //61 , 89 prev
 		initAttackBox();
 	}
 	
 	private void initAttackBox() {
-		attackBox = new Rectangle2D.Float(x, y,(int) (70 * Game.SCALE), (int) (89 * Game.SCALE));
+		attackBox = new Rectangle2D.Float(x, y,(int) (70 * Game.SCALE), (int) (85 * Game.SCALE));
 		attackBoxOffsetX = (int)(Game.SCALE * 5);
 	}
 	

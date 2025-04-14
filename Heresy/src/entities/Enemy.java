@@ -40,13 +40,15 @@ public abstract class Enemy extends Entity {
 	}
 	
 	protected void firstUpdateCheck(int[][] lvlData) {
-		if(!IsEntityOnFloor(hitBox, lvlData)) {
+		if (!IsEntityOnFloor(hitBox, lvlData)) {
 			inAir = true;
-			
+		} else {
+			tileY = (int) (hitBox.y / Game.TILES_SIZE); 
 		}
 		firstUpdate = false;	
 	}
 	
+
 
 	protected void updateAttackBoxFlip() {
 		if (walkDir == RIGHT)
