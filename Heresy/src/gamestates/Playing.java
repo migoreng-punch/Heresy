@@ -338,7 +338,10 @@ public class Playing extends State implements StateMethods {
 	public void checkSpikesTouched(Player p) {
 		objectManager.checkSpikesTouched(p);
 	}
-
+	
+	public void checkCaveSpikesTouched(Player p) {
+		objectManager.checkCaveSpikesTouched(p);
+	}
 	
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;

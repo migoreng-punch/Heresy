@@ -143,6 +143,7 @@ public class Player extends Entity {
 		if(moving) {
 			checkPotionTouched();
 			checkSpikesTouched();
+			checkCaveSpikesTouched();
 			if(powerAttackActive) {
 				powerAttackTick++;
 				if(powerAttackTick >= 35) {
@@ -161,6 +162,10 @@ public class Player extends Entity {
 	
 	private void checkSpikesTouched() {
 		playing.checkSpikesTouched(this);
+	}
+	
+	private void checkCaveSpikesTouched() {
+		playing.checkCaveSpikesTouched(this);
 	}
 
 	private void checkPotionTouched() {

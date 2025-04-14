@@ -21,6 +21,7 @@ public class LoadSave {
 	public static final String PLAYER_ATLAS = "adventurer_sprites_v1.png";
 	public static final String LEVEL_ATLAS = "heresy_tilesheet.png";
 //	public static final String LEVEL_TEMP_DATA = "level_temp_v1.png";
+	
 	public static final String MENU_BUTTONS = "menu_buttons_heresy.png";
 	public static final String MENU_BACKGROUND = "menu_backdrop_heresy.png";
 	public static final String PAUSE_BACKGROUND = "menu_anotha_one.png";
@@ -35,6 +36,14 @@ public class LoadSave {
 	public static final String SKELETON_SPRITE = "Skeleton_warrior.png";
 	public static final String SLIME_SPRITE = "slime_spritesheet.png";
 	public static final String WOLF_SPRITE = "grey_wolf_spritesheet.png";
+	public static final String BLUE_GOLEM_SPRITE = "blue_golem_spritesheet.png";
+	public static final String ORANGE_GOLEM_SPRITE = "orange_golem_spritesheet.png";
+	public static final String BROWN_WOLF_SPRITE = "brown_wolf_spritesheet.png";
+	public static final String MIMIC_SPRITE = "mimic_spritesheet.png";
+	public static final String EYEBALL_SPRITE = "eye_spritesheet.png";
+	public static final String BLACK_WOLF_SPRITE = "black_wolf_spritesheet.png";
+	public static final String DEMON_SLIME_SPRITE = "demon_slime_spritesheet.png";
+	public static final String FROST_GUARDIAN_SPRITE = "frost_guardian_spritesheet.png";
 	
 	public static final String STATUS_BAR = "Player_healthbar.png";
 	public static final String COMPLETED_IMG = "menu_level_complete.png";
@@ -42,6 +51,8 @@ public class LoadSave {
 	public static final String POTION_ATLAS = "potions_sprites.png";
 	public static final String CONTAINER_ATLAS = "destructibles_sprites.png";
 	public static final String TRAP_ATLAS = "trap_atlas.png";
+	public static final String CAVE_TRAP_ATLAS = "cave_spike_atlas.png";
+
 	public static final String DEATH_SCREEN = "death_screen_heresy.png";
 	public static final String OPTIONS_MENU = "options_background_heresy.png";
 

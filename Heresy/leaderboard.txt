@@ -30,3 +30,5 @@ Player1 - 54s
 Player1 - 62s
 Player1 - 52s
 Player1 - 19s
+Player1 - 24s
+Player1 - 139s

@@ -61,6 +61,7 @@ public abstract class Enemy extends Entity {
 		if (state != HIT && state != DEAD) {
 			updateInAir(lvlData);
 			playing.getObjectManager().checkSpikesTouched(this);
+			playing.getObjectManager().checkCaveSpikesTouched(this);
 		}
 	}
 	
@@ -118,7 +119,7 @@ public abstract class Enemy extends Entity {
 	
 	protected boolean isPlayerInRange(Player player) {
 		int absValue =  (int) Math.abs(player.hitBox.x - hitBox.x);
-		return absValue <= attackDistance * 4;
+		return absValue <= attackDistance * 3;
 	}
 	
 	protected boolean isPlayerCloseForAttack(Player player) {

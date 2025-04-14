@@ -17,10 +17,11 @@ public class ObjectManager {
 	
 	private Playing playing;
 	private BufferedImage[][] potionImgs, containerImgs;
-	private BufferedImage spikeImg;
+	private BufferedImage spikeImg, cSpikeImg;
 	private ArrayList<Potion> potions;
 	private ArrayList<GameContainer> containers;
 	private ArrayList<Spike> spikes;
+	private ArrayList<CaveSpike> cSpikes;
 	
 	private Level currentLevel;
 
@@ -37,9 +38,21 @@ public class ObjectManager {
 				p.kill();
 	}
 	
+	public void checkCaveSpikesTouched(Player p) {
+		for(CaveSpike s : cSpikes)
+			if(s.getHitBox().intersects(p.getHitbox()))
+				p.kill();
+	}
+	
 	public void checkSpikesTouched(Enemy e) {
 		for (Spike s : spikes)
 			if (s.getHitBox().intersects(e.getHitbox()))
+				e.hurt(200);
+	}
+	
+	public void checkCaveSpikesTouched(Enemy e) {
+		for (CaveSpike s : cSpikes)
+			if(s.getHitBox().intersects(e.getHitbox()))
 				e.hurt(200);
 	}
 	
@@ -88,6 +101,7 @@ public class ObjectManager {
 		potions = new ArrayList<>(newLevel.getPotion());
 		containers = new ArrayList<>(newLevel.getGameContainer());
 		spikes = newLevel.getSpike();
+		cSpikes = newLevel.getCSpikes();
 		}
 
 	private void loadImgs() {
@@ -110,6 +124,7 @@ public class ObjectManager {
 		}
 		
 		spikeImg = LoadSave.GetSpriteAtlas(LoadSave.TRAP_ATLAS);
+		cSpikeImg = LoadSave.GetSpriteAtlas(LoadSave.CAVE_TRAP_ATLAS);
 	}
 	
 	public void update() {
@@ -136,6 +151,11 @@ public class ObjectManager {
 					(int) (s.getHitBox().x - xLvlOffset), 
 					(int) (s.getHitBox().y - s.getyDrawOffset()), 
 					SPIKE_WIDTH, SPIKE_HEIGHT, null);
+			s.drawHitbox(g, xLvlOffset);
+		}
+		
+		for(CaveSpike s : cSpikes) {
+			g.drawImage(cSpikeImg, (int) (s.getHitBox().x - xLvlOffset), (int) s.getHitBox().y, CAVE_SPIKE_WIDTH, CAVE_SPIKE_HEIGHT, null);
 			s.drawHitbox(g, xLvlOffset);
 		}
 	}
